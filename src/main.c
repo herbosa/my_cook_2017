@@ -214,7 +214,7 @@ int main(int argc, char **argv, char **envp)
 	sfImage *icn = sfImage_createFromFile("src/pictures/icon.png");
 	sfUint8 *icon = (sfUint8 *)sfImage_getPixelsPtr(icn);
 
-	if (bg == NULL || brk == NULL || envp[0] == NULL)
+	if (bg == NULL || brk == NULL || envp[0] == NULL || argc != 1 || argv[1])
 		return (84);
 	bg = fill_bg(bg);
 	brk = fill_brk(brk);
