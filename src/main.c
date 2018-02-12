@@ -206,7 +206,7 @@ sprite_t **fill_bg(sprite_t **bg)
 
 
 
-int main(void)
+int main(int argc, char **argv, char **envp)
 {
 	sfRenderWindow *window = malloc(sizeof(sfRenderWindow *) * 1);
 	sprite_t **bg = malloc(sizeof(sprite_t *) * 4);
@@ -214,7 +214,7 @@ int main(void)
 	sfImage *icn = sfImage_createFromFile("src/pictures/icon.png");
 	sfUint8 *icon = (sfUint8 *)sfImage_getPixelsPtr(icn);
 
-	if (bg == NULL || brk == NULL)
+	if (bg == NULL || brk == NULL || envp[0] == NULL)
 		return (84);
 	bg = fill_bg(bg);
 	brk = fill_brk(brk);
