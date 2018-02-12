@@ -18,6 +18,24 @@ sfRenderWindow *renderwindow_create(sfRenderWindow *wd)
 	return (wd);
 }
 
+void start_disp(sfRenderWindow *window, sfSprite *sprite_start)
+{
+        sfText *start = sfText_create();
+        sfFont *font = sfFont_createFromFile("./src/font/font.ttf");
+        sfVector2f origin = {850, 320};
+
+        sfRenderWindow_drawSprite(window, sprite_start, NULL);
+        sfText_setString(start, "Press any\n key to\n  start");
+        sfText_setFont(start, font);
+        sfText_setCharacterSize(start, 90);
+	sfText_setColor(start, sfColor_fromRGB(0, 0, 0));
+	sfText_move(start, origin);
+        sfRenderWindow_drawText(window, start, NULL);
+        sfText_destroy(start);
+        sfFont_destroy(font);
+}
+
+
 void touch_home(sfRenderWindow *window, sprite_t **bg)
 {
 	if (sfKeyboard_isKeyPressed(sfKeyQ))
@@ -38,7 +56,7 @@ void display_home(sfRenderWindow *window, sprite_t **bg)
 			touch_home(window, bg);
 		}
 	}
-	sfRenderWindow_drawSprite(window, bg[0]->s_sprt, NULL);
+	start_disp(window, bg[0]->s_sprt);
 	sfRenderWindow_display(window);
 }
 
@@ -186,11 +204,15 @@ sprite_t **fill_bg(sprite_t **bg)
 	return (bg);
 }
 
+
+
 int main(void)
 {
 	sfRenderWindow *window = malloc(sizeof(sfRenderWindow *) * 1);
 	sprite_t **bg = malloc(sizeof(sprite_t *) * 4);
 	sprite_t **brk = malloc(sizeof(sprite_t *) * 2);
+	sfImage *icn = sfImage_createFromFile("src/pictures/icon.png");
+	sfUint8 *icon = (sfUint8 *)sfImage_getPixelsPtr(icn);
 
 	if (bg == NULL || brk == NULL)
 		return (84);
@@ -198,6 +220,7 @@ int main(void)
 	brk = fill_brk(brk);
 	window = renderwindow_create(window);
 	sfRenderWindow_setFramerateLimit(window, 60);
+	sfRenderWindow_setIcon(window, 100, 100, icon);
 	game_loop(window, bg, brk);
 	return (0);
 }
