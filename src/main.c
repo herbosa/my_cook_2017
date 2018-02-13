@@ -14,7 +14,7 @@ sfRenderWindow *renderwindow_create(sfRenderWindow *wd)
 	v_mode.width = 1920;
 	v_mode.height = 1075;
 	v_mode.bitsPerPixel = 32;
-	wd = sfRenderWindow_create(v_mode, "MY_COOK", sfDefaultStyle, NULL);
+	wd = sfRenderWindow_create(v_mode, "Cook, Serve, Delicious", sfDefaultStyle, NULL);
 	return (wd);
 }
 
@@ -176,6 +176,80 @@ void hide_menu(sprite_t **ing)
 	ing[24]->o_sprt = 0;
 }
 
+void make_burger(sprite_t **ing)
+{
+	if (ing[10]->o_sprt == 1 && ing[25]->o_sprt == 0 &&
+		ing[27]->o_sprt == 0)
+		ing[25]->o_sprt = 1;
+	if (ing[18]->o_sprt == 1 && ing[25]->o_sprt == 1) {
+		ing[25]->o_sprt = 2;
+		ing[27]->o_sprt = 0;
+	}
+	if (ing[7]->o_sprt == 1 && ing[25]->o_sprt == 2)
+		ing[25]->o_sprt = 3;
+	if (ing[6]->o_sprt == 1 && ing[25]->o_sprt == 3)
+		ing[25]->o_sprt = 4;
+	if (ing[17]->o_sprt == 1 && ing[25]->o_sprt == 4)
+		ing[25]->o_sprt = 5;
+	if (ing[20]->o_sprt == 1 && ing[25]->o_sprt == 5)
+		ing[25]->o_sprt = 6;
+	if (ing[12]->o_sprt == 1 && ing[25]->o_sprt == 6)
+		ing[25]->o_sprt = 7;
+	if (ing[10]->o_sprt == 1 && ing[25]->o_sprt == 7)
+		ing[25]->o_sprt = 8;
+	if (ing[26]->o_sprt == 1 && ing[25]->o_sprt == 8)
+		ing[25]->o_sprt = 9;
+}
+
+void make_vege_burger(sprite_t **ing)
+{
+	if (ing[10]->o_sprt == 1 && ing[27]->o_sprt == 0 &&
+		ing[25]->o_sprt <= 1)
+		ing[27]->o_sprt = 1;
+	if (ing[19]->o_sprt == 1 && ing[27]->o_sprt == 1) {
+		ing[27]->o_sprt = 2;
+		ing[25]->o_sprt = 0;
+	}
+	if (ing[17]->o_sprt == 1 && ing[27]->o_sprt == 2)
+		ing[27]->o_sprt = 3;
+	if (ing[20]->o_sprt == 1 && ing[27]->o_sprt == 3)
+		ing[27]->o_sprt = 4;
+	if (ing[12]->o_sprt == 1 && ing[27]->o_sprt == 4)
+		ing[27]->o_sprt = 5;
+	if (ing[10]->o_sprt == 1 && ing[27]->o_sprt == 5)
+		ing[27]->o_sprt = 6;
+	if (ing[26]->o_sprt == 1 && ing[27]->o_sprt == 6)
+		ing[27]->o_sprt = 7;
+}
+
+void disp_burger(sfRenderWindow *window, sprite_t **ing)
+{
+	if (ing[25]->o_sprt == 0)
+		return;
+	if (ing[25]->o_sprt == 9) {
+		// commande fini
+		ing[25]->o_sprt = 0;
+		return;
+	}
+	ing[25]->r_sprt.top = (ing[25]->o_sprt - 1) * 200;
+	sfSprite_setTextureRect(ing[25]->s_sprt, ing[25]->r_sprt);
+	sfRenderWindow_drawSprite(window, ing[25]->s_sprt, NULL);
+}
+
+void disp_vege_burger(sfRenderWindow *window, sprite_t **ing)
+{
+	if (ing[27]->o_sprt == 0 || ing[27]->o_sprt == 1)
+		return;
+	if (ing[27]->o_sprt == 7) {
+		// commande fini
+		ing[27]->o_sprt = 0;
+		return;
+	}
+	ing[27]->r_sprt.top = (ing[27]->o_sprt - 1) * 200;
+	sfSprite_setTextureRect(ing[27]->s_sprt, ing[27]->r_sprt);
+	sfRenderWindow_drawSprite(window, ing[27]->s_sprt, NULL);
+}
+
 void clicked_game(sprite_t **ing, sfEvent event)
 {
 	int i = 0;
@@ -280,6 +354,8 @@ void touch_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
 		ing[21]->o_sprt = 1;
 	if (sfKeyboard_isKeyPressed(sfKeyA))
 		ing[22]->o_sprt = 1;
+	if (sfKeyboard_isKeyPressed(sfKeySpace))
+		ing[26]->o_sprt = 1;
 }
 
 void drawer_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
@@ -290,6 +366,8 @@ void drawer_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
 	sfRenderWindow_drawSprite(window, bg[3]->s_sprt, NULL);
 	for (i = 0; i < 25; i = i + 1)
 		sfRenderWindow_drawSprite(window, ing[i]->s_sprt, NULL);
+	disp_burger(window, ing);
+	disp_vege_burger(window, ing);
 }
 
 void game_setsprite(sprite_t **ing)
@@ -307,6 +385,7 @@ void display_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
 
 	for (i = 0; i < 24; i = i + 1)
 		ing[i]->o_sprt = 0;
+	ing[26]->o_sprt = 0;
 	while (sfRenderWindow_pollEvent(window, &event)) {
 		if (event.type == sfEvtClosed)
 			sfRenderWindow_close(window);
@@ -319,6 +398,8 @@ void display_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
 	if (ing[23]->o_sprt == 1)
 		bg[0]->o_sprt = 2;
 	game_setsprite(ing);
+	make_burger(ing);
+	make_vege_burger(ing);
 	drawer_game(window, bg, ing);
 	sfRenderWindow_display(window);
 }
@@ -508,6 +589,7 @@ sprite_t **fill_ing_18_20(sprite_t **ing)
 	sfSprite_setPosition(ing[20]->s_sprt, ing[20]->v_sprt);
 	return (ing);
 }
+
 sprite_t **fill_ing_21_23(sprite_t **ing)
 {
 	ing[21] = malloc(sizeof(sprite_t) * 1);
@@ -528,7 +610,38 @@ sprite_t **fill_ing_21_23(sprite_t **ing)
 	ing[23]->v_sprt.y = 700;
 	ing[23]->r_sprt = create_rect_ing(ing[23]->r_sprt);
 	sfSprite_setPosition(ing[23]->s_sprt, ing[23]->v_sprt);
-	ing = fill_ing_18_20(ing);
+	return (ing);
+}
+
+
+sprite_t **fill_ing_24_26(sprite_t **ing)
+{
+	ing[24] = malloc(sizeof(sprite_t) * 1);
+	ing[24] = create_sprite(ing[24], "rsrc/pictures/info.png");
+	ing[24]->v_sprt.x = 1520;
+	ing[24]->v_sprt.y = 0;
+	ing[24]->r_sprt = create_rect_ing(ing[24]->r_sprt);
+	sfSprite_setPosition(ing[24]->s_sprt, ing[24]->v_sprt);
+	ing[25] = malloc(sizeof(sprite_t) * 1);
+	ing[25] = create_sprite(ing[25], "rsrc/pictures/buger.png");
+	ing[25]->v_sprt.x = 750;
+	ing[25]->v_sprt.y = 750;
+	ing[25]->r_sprt = create_rect(ing[25]->r_sprt);
+	ing[25]->o_sprt = 0;
+	sfSprite_setPosition(ing[25]->s_sprt, ing[25]->v_sprt);
+	ing[26] = malloc(sizeof(sprite_t) * 1);
+	ing[26]->o_sprt = 0;
+	return (ing);
+}
+sprite_t **fill_ing_27_29(sprite_t **ing)
+{
+	ing[27] = malloc(sizeof(sprite_t) * 1);
+	ing[27] = create_sprite(ing[27], "rsrc/pictures/burger_vege.png");
+	ing[27]->v_sprt.x = 750;
+	ing[27]->v_sprt.y = 750;
+	ing[27]->r_sprt = create_rect(ing[27]->r_sprt);
+	ing[27]->o_sprt = 0;
+	sfSprite_setPosition(ing[27]->s_sprt, ing[27]->v_sprt);
 	return (ing);
 }
 
@@ -542,17 +655,14 @@ sprite_t **fill_ing(sprite_t **ing)
 	ing = fill_ing_9_11(ing);
 	ing = fill_ing_12_14(ing);
 	ing = fill_ing_15_17(ing);
+	ing = fill_ing_18_20(ing);
 	ing = fill_ing_21_23(ing);
-	ing[24] = malloc(sizeof(sprite_t) * 1);
-	ing[24] = create_sprite(ing[24], "rsrc/pictures/info.png");
-	ing[24]->v_sprt.x = 1520;
-	ing[24]->v_sprt.y = 0;
-	ing[24]->r_sprt = create_rect_ing(ing[24]->r_sprt);
-	sfSprite_setPosition(ing[24]->s_sprt, ing[24]->v_sprt);
+	ing = fill_ing_24_26(ing);
+	ing = fill_ing_27_29(ing);
 	for (i = 0; i < 24; i = i + 1)
 		ing[i]->o_sprt = 0;
 	ing[24]->o_sprt = 1;
-	ing[25] = 0;
+	ing[28] = 0;
 	return (ing);
 }
 
@@ -609,7 +719,7 @@ int main(int ac, char **av, char **envp)
 	sfRenderWindow *window = malloc(sizeof(sfRenderWindow *) * 1);
 	sprite_t **bg = malloc(sizeof(sprite_t *) * 5);
 	sprite_t **brk = malloc(sizeof(sprite_t *) * 4);
-	sprite_t **ing = malloc(sizeof(sprite_t *) * 25);
+	sprite_t **ing = malloc(sizeof(sprite_t *) * 29);
 	sfImage *icn = sfImage_createFromFile("rsrc/pictures/icon.png");
 	sfUint8 *icon = (sfUint8 *)sfImage_getPixelsPtr(icn);
 
