@@ -266,6 +266,156 @@ void make_pizza(sprite_t **ing)
 		ing[28]->o_sprt = 10;
 }
 
+void make_beer(sprite_t **ing)
+{
+	if (ing[26]->o_sprt == 1 && ing[32]->o_sprt == 8)
+		ing[32]->o_sprt = 9;
+	if (ing[0]->o_sprt == 1 && ing[32]->o_sprt == 7)
+		ing[32]->o_sprt = 8;
+	if (ing[0]->o_sprt == 1 && ing[32]->o_sprt == 6)
+		ing[32]->o_sprt = 7;
+	if (ing[0]->o_sprt == 1 && ing[32]->o_sprt == 5)
+		ing[32]->o_sprt = 6;
+	if (ing[0]->o_sprt == 1 && ing[32]->o_sprt == 4)
+		ing[32]->o_sprt = 5;
+	if (ing[0]->o_sprt == 1 && ing[32]->o_sprt == 3)
+		ing[32]->o_sprt = 4;
+	if (ing[0]->o_sprt == 1 && ing[32]->o_sprt == 2)
+		ing[32]->o_sprt = 3;
+	if (ing[0]->o_sprt == 1 && ing[32]->o_sprt == 1)
+		ing[32]->o_sprt = 2;
+	if (ing[0]->o_sprt == 1 && ing[32]->o_sprt == 0)
+		ing[32]->o_sprt = 1;
+}
+
+void make_fries(sprite_t **ing)
+{
+	if (ing[21]->o_sprt == 1 && ing[35]->o_sprt == 8)
+		ing[35]->o_sprt = 9;
+	if (ing[21]->o_sprt == 1 && ing[35]->o_sprt == 7)
+		ing[35]->o_sprt = 8;
+	if (ing[21]->o_sprt == 1 && ing[35]->o_sprt == 6)
+		ing[35]->o_sprt = 7;
+	if (ing[21]->o_sprt == 1 && ing[35]->o_sprt == 5)
+		ing[35]->o_sprt = 6;
+	if (ing[21]->o_sprt == 1 && ing[35]->o_sprt == 4)
+		ing[35]->o_sprt = 5;
+	if (ing[21]->o_sprt == 1 && ing[35]->o_sprt == 3)
+		ing[35]->o_sprt = 4;
+	if (ing[21]->o_sprt == 1 && ing[35]->o_sprt == 2)
+		ing[35]->o_sprt = 3;
+	if (ing[21]->o_sprt == 1 && ing[35]->o_sprt == 1)
+		ing[35]->o_sprt = 2;
+	if (ing[21]->o_sprt == 1 && ing[35]->o_sprt == 0)
+		ing[35]->o_sprt = 1;
+	if (ing[26]->o_sprt == 1 && ing[35]->o_sprt == 9)
+		ing[35]->o_sprt = 10;
+}
+
+void make_coca(sprite_t **ing)
+{
+	if (ing[1]->o_sprt == 1 && ing[33]->o_sprt == 8)
+		ing[33]->o_sprt = 9;
+	if (ing[1]->o_sprt == 1 && ing[33]->o_sprt == 7)
+		ing[33]->o_sprt = 8;
+	if (ing[1]->o_sprt == 1 && ing[33]->o_sprt == 6)
+		ing[33]->o_sprt = 7;
+	if (ing[1]->o_sprt == 1 && ing[33]->o_sprt == 5)
+		ing[33]->o_sprt = 6;
+	if (ing[1]->o_sprt == 1 && ing[33]->o_sprt == 4)
+		ing[33]->o_sprt = 5;
+	if (ing[1]->o_sprt == 1 && ing[33]->o_sprt == 3)
+		ing[33]->o_sprt = 4;
+	if (ing[1]->o_sprt == 1 && ing[33]->o_sprt == 2)
+		ing[33]->o_sprt = 3;
+	if (ing[1]->o_sprt == 1 && ing[33]->o_sprt == 1)
+		ing[33]->o_sprt = 2;
+	if (ing[1]->o_sprt == 1 && ing[33]->o_sprt == 0)
+		ing[33]->o_sprt = 1;
+	if (ing[26]->o_sprt == 1 && ing[33]->o_sprt == 9)
+		ing[33]->o_sprt = 10;
+}
+
+void disp_coca(sfRenderWindow *window, sprite_t **ing)
+{
+	if (ing[33]->o_sprt == 0)
+		return;
+	if (ing[33]->o_sprt == 10) {
+		// commande fini
+		ing[33]->o_sprt = 0;
+		return;
+	}
+	ing[33]->r_sprt.top = (ing[33]->o_sprt - 1) * 200;
+	sfSprite_setTextureRect(ing[33]->s_sprt, ing[33]->r_sprt);
+	sfRenderWindow_drawSprite(window, ing[33]->s_sprt, NULL);
+}
+
+void disp_fries(sfRenderWindow *window, sprite_t **ing)
+{
+	if (ing[35]->o_sprt == 0)
+		return;
+	if (ing[35]->o_sprt == 10) {
+		// commande fini
+		ing[35]->o_sprt = 0;
+		return;
+	}
+	ing[35]->r_sprt.top = (ing[35]->o_sprt - 1) * 200;
+	sfSprite_setTextureRect(ing[35]->s_sprt, ing[35]->r_sprt);
+	sfRenderWindow_drawSprite(window, ing[35]->s_sprt, NULL);
+}
+
+void make_fanta(sprite_t **ing)
+{
+	if (ing[2]->o_sprt == 1 && ing[34]->o_sprt == 8)
+		ing[34]->o_sprt = 9;
+	if (ing[2]->o_sprt == 1 && ing[34]->o_sprt == 7)
+		ing[34]->o_sprt = 8;
+	if (ing[2]->o_sprt == 1 && ing[34]->o_sprt == 6)
+		ing[34]->o_sprt = 7;
+	if (ing[2]->o_sprt == 1 && ing[34]->o_sprt == 5)
+		ing[34]->o_sprt = 6;
+	if (ing[2]->o_sprt == 1 && ing[34]->o_sprt == 4)
+		ing[34]->o_sprt = 5;
+	if (ing[2]->o_sprt == 1 && ing[34]->o_sprt == 3)
+		ing[34]->o_sprt = 4;
+	if (ing[2]->o_sprt == 1 && ing[34]->o_sprt == 2)
+		ing[34]->o_sprt = 3;
+	if (ing[2]->o_sprt == 1 && ing[34]->o_sprt == 1)
+		ing[34]->o_sprt = 2;
+	if (ing[2]->o_sprt == 1 && ing[34]->o_sprt == 0)
+		ing[34]->o_sprt = 1;
+	if (ing[26]->o_sprt == 1 && ing[34]->o_sprt == 9)
+		ing[34]->o_sprt = 10;
+}
+
+void disp_fanta(sfRenderWindow *window, sprite_t **ing)
+{
+	if (ing[34]->o_sprt == 0)
+		return;
+	if (ing[34]->o_sprt == 10) {
+		// commande fini
+		ing[34]->o_sprt = 0;
+		return;
+	}
+	ing[34]->r_sprt.top = (ing[34]->o_sprt - 1) * 200;
+	sfSprite_setTextureRect(ing[34]->s_sprt, ing[34]->r_sprt);
+	sfRenderWindow_drawSprite(window, ing[34]->s_sprt, NULL);
+}
+
+void disp_beer(sfRenderWindow *window, sprite_t **ing)
+{
+	if (ing[32]->o_sprt == 0)
+		return;
+	if (ing[32]->o_sprt == 9) {
+		// commande fini
+		ing[32]->o_sprt = 0;
+		return;
+	}
+	ing[32]->r_sprt.top = (ing[32]->o_sprt - 1) * 200;
+	sfSprite_setTextureRect(ing[32]->s_sprt, ing[32]->r_sprt);
+	sfRenderWindow_drawSprite(window, ing[32]->s_sprt, NULL);
+}
+
 void disp_pizza(sfRenderWindow *window, sprite_t **ing)
 {
 	if (ing[28]->o_sprt == 0)
@@ -485,11 +635,15 @@ void drawer_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
 	sfRenderWindow_drawSprite(window, bg[3]->s_sprt, NULL);
 	for (i = 0; i < 25; i = i + 1)
 		sfRenderWindow_drawSprite(window, ing[i]->s_sprt, NULL);
+	disp_beer(window, ing);
+	disp_coca(window, ing);
+	disp_fanta(window, ing);
 	disp_burger(window, ing);
 	disp_vege_burger(window, ing);
 	disp_pizza(window, ing);
 	disp_salade(window, ing);
 	disp_donut(window, ing);
+	disp_fries(window, ing);
 }
 
 void game_setsprite(sprite_t **ing)
@@ -498,6 +652,42 @@ void game_setsprite(sprite_t **ing)
 
 	for(i = 0; i < 25; i = i + 1)
 		sfSprite_setTextureRect(ing[i]->s_sprt, ing[i]->r_sprt);
+}
+
+void make_burgers_drink(sprite_t **ing)
+{
+	if (ing[30]->o_sprt == 0 && ing[28]->o_sprt == 0 &&
+		ing[31]->o_sprt == 0 && ing[25]->o_sprt == 0 &&
+		ing[27]->o_sprt == 0)
+		make_fries(ing);
+	if (ing[30]->o_sprt == 0 && ing[28]->o_sprt == 0 &&
+		ing[31]->o_sprt == 0 && ing[35]->o_sprt == 0) {
+		make_burger(ing);
+		make_vege_burger(ing);
+	}
+	if (ing[33]->o_sprt == 0 && ing[34]->o_sprt == 0)
+		make_beer(ing);
+	if (ing[34]->o_sprt == 0 && ing[32]->o_sprt == 0)
+		make_coca(ing);
+	if (ing[33]->o_sprt == 0 && ing[32]->o_sprt == 0)
+		make_fanta(ing);
+}
+
+void make_comandes(sprite_t **ing)
+{
+	if (ing[30]->o_sprt == 0 && ing[31]->o_sprt == 0 &&
+		ing[25]->o_sprt == 0 && ing[27]->o_sprt == 0
+		&& ing[35]->o_sprt == 0)
+		make_pizza(ing);
+	if (ing[31]->o_sprt == 0 && ing[28]->o_sprt == 0 &&
+		ing[25]->o_sprt == 0 && ing[27]->o_sprt == 0
+		&& ing[35]->o_sprt == 0)
+		make_salade(ing);
+	if (ing[30]->o_sprt == 0 && ing[28]->o_sprt == 0 &&
+		ing[25]->o_sprt == 0 && ing[27]->o_sprt == 0
+		&& ing[35]->o_sprt == 0)
+		make_donut(ing);
+	make_burgers_drink(ing);
 }
 
 void display_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
@@ -521,11 +711,7 @@ void display_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
 	if (ing[23]->o_sprt == 1)
 		bg[0]->o_sprt = 2;
 	game_setsprite(ing);
-	make_burger(ing);
-	make_pizza(ing);
-	make_salade(ing);
-	make_donut(ing);
-	make_vege_burger(ing);
+	make_comandes(ing);
 	drawer_game(window, bg, ing);
 	sfRenderWindow_display(window);
 }
@@ -798,6 +984,39 @@ sprite_t **fill_ing_30_32(sprite_t **ing)
 	ing[31]->r_sprt = create_rect(ing[31]->r_sprt);
 	ing[31]->o_sprt = 0;
 	sfSprite_setPosition(ing[31]->s_sprt, ing[31]->v_sprt);
+	ing[32] = malloc(sizeof(sprite_t) * 1);
+	ing[32] = create_sprite(ing[32], "rsrc/pictures/bierre.png");
+	ing[32]->v_sprt.x = 125;
+	ing[32]->v_sprt.y = 750;
+	ing[32]->r_sprt = create_rect(ing[32]->r_sprt);
+	ing[32]->o_sprt = 0;
+	sfSprite_setPosition(ing[32]->s_sprt, ing[32]->v_sprt);
+	return (ing);
+}
+
+sprite_t **fill_ing_33_35(sprite_t **ing)
+{
+	ing[33] = malloc(sizeof(sprite_t) * 1);
+	ing[33] = create_sprite(ing[33], "rsrc/pictures/coca.png");
+	ing[33]->v_sprt.x = 125;
+	ing[33]->v_sprt.y = 750;
+	ing[33]->r_sprt = create_rect(ing[33]->r_sprt);
+	ing[33]->o_sprt = 0;
+	sfSprite_setPosition(ing[33]->s_sprt, ing[33]->v_sprt);
+	ing[34] = malloc(sizeof(sprite_t) * 1);
+	ing[34] = create_sprite(ing[34], "rsrc/pictures/fanta.png");
+	ing[34]->v_sprt.x = 125;
+	ing[34]->v_sprt.y = 750;
+	ing[34]->r_sprt = create_rect(ing[34]->r_sprt);
+	ing[34]->o_sprt = 0;
+	sfSprite_setPosition(ing[34]->s_sprt, ing[34]->v_sprt);
+	ing[35] = malloc(sizeof(sprite_t) * 1);
+	ing[35] = create_sprite(ing[35], "rsrc/pictures/salty_fries.png");
+	ing[35]->v_sprt.x = 750;
+	ing[35]->v_sprt.y = 750;
+	ing[35]->r_sprt = create_rect(ing[35]->r_sprt);
+	ing[35]->o_sprt = 0;
+	sfSprite_setPosition(ing[35]->s_sprt, ing[35]->v_sprt);
 	return (ing);
 }
 
@@ -816,10 +1035,11 @@ sprite_t **fill_ing(sprite_t **ing)
 	ing = fill_ing_24_26(ing);
 	ing = fill_ing_27_29(ing);
 	ing = fill_ing_30_32(ing);
+	ing = fill_ing_33_35(ing);
 	for (i = 0; i < 24; i = i + 1)
 		ing[i]->o_sprt = 0;
 	ing[24]->o_sprt = 1;
-	ing[32] = 0;
+	ing[36] = 0;
 	return (ing);
 }
 
@@ -876,7 +1096,7 @@ int main(int ac, char **av, char **envp)
 	sfRenderWindow *window = malloc(sizeof(sfRenderWindow *) * 1);
 	sprite_t **bg = malloc(sizeof(sprite_t *) * 5);
 	sprite_t **brk = malloc(sizeof(sprite_t *) * 4);
-	sprite_t **ing = malloc(sizeof(sprite_t *) * 33);
+	sprite_t **ing = malloc(sizeof(sprite_t *) * 36);
 	sfImage *icn = sfImage_createFromFile("rsrc/pictures/icon.png");
 	sfUint8 *icon = (sfUint8 *)sfImage_getPixelsPtr(icn);
 
