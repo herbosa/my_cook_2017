@@ -220,7 +220,7 @@ int main(int ac, char **av, char **envp)
 	brk = fill_brk(brk);
 	window = renderwindow_create(window);
 	sfRenderWindow_setFramerateLimit(window, 60);
-	sfRenderWindow_setIcon(window, 100, 100, icon);
+	sfRenderWindow_setIcon(window, 32, 32, icon);
 	game_loop(window, bg, brk);
 	return (0);
 }
