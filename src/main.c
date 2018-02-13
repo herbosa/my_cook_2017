@@ -21,7 +21,7 @@ sfRenderWindow *renderwindow_create(sfRenderWindow *wd)
 void start_disp(sfRenderWindow *window, sfSprite *sprite_start)
 {
         sfText *start = sfText_create();
-        sfFont *font = sfFont_createFromFile("./src/font/font.ttf");
+        sfFont *font = sfFont_createFromFile("./rsrc/font/font.ttf");
         sfVector2f origin = {850, 320};
 
         sfRenderWindow_drawSprite(window, sprite_start, NULL);
@@ -176,13 +176,13 @@ sfIntRect create_rect(sfIntRect rect)
 sprite_t **fill_brk(sprite_t **brk)
 {
 	brk[0] = malloc(sizeof(sprite_t) * 1);
-	brk[0] = create_sprite(brk[0], "src/pictures/quitb.png");
+	brk[0] = create_sprite(brk[0], "rsrc/pictures/quitb.png");
 	brk[0]->v_sprt.x = 600;
 	brk[0]->v_sprt.y = 700;
 	brk[0]->r_sprt = create_rect(brk[0]->r_sprt);
 	sfSprite_setPosition(brk[0]->s_sprt,  brk[0]->v_sprt);
 	brk[1] = malloc(sizeof(sprite_t) * 1);
-	brk[1] = create_sprite(brk[1], "src/pictures/reume_b.png");
+	brk[1] = create_sprite(brk[1], "rsrc/pictures/reume_b.png");
 	brk[1]->v_sprt.x = 1000;
 	brk[1]->v_sprt.y = 700;
 	brk[1]->r_sprt = create_rect(brk[1]->r_sprt);
@@ -193,14 +193,14 @@ sprite_t **fill_brk(sprite_t **brk)
 sprite_t **fill_bg(sprite_t **bg)
 {
 	bg[0] = malloc(sizeof(sprite_t) * 1);
-	bg[0] = create_sprite(bg[0], "src/pictures/home.png");
+	bg[0] = create_sprite(bg[0], "rsrc/pictures/home.png");
 	bg[0]->o_sprt = 0;
 	bg[1] = malloc(sizeof(sprite_t) * 1);
-	bg[1] = create_sprite(bg[1], "src/pictures/pause.png");
+	bg[1] = create_sprite(bg[1], "rsrc/pictures/pause.png");
 	bg[2] = malloc(sizeof(sprite_t) * 1);
-	bg[2] = create_sprite(bg[2], "src/pictures/background.png");
+	bg[2] = create_sprite(bg[2], "rsrc/pictures/background.png");
 	bg[3] = malloc(sizeof(sprite_t) * 1);
-	bg[3] = create_sprite(bg[3], "src/pictures/contoire.png");
+	bg[3] = create_sprite(bg[3], "rsrc/pictures/contoire.png");
 	return (bg);
 }
 
@@ -211,7 +211,7 @@ int main(int ac, char **av, char **envp)
 	sfRenderWindow *window = malloc(sizeof(sfRenderWindow *) * 1);
 	sprite_t **bg = malloc(sizeof(sprite_t *) * 4);
 	sprite_t **brk = malloc(sizeof(sprite_t *) * 2);
-	sfImage *icn = sfImage_createFromFile("src/pictures/icon.png");
+	sfImage *icn = sfImage_createFromFile("rsrc/pictures/icon.png");
 	sfUint8 *icon = (sfUint8 *)sfImage_getPixelsPtr(icn);
 
 	if (bg == NULL || brk == NULL || envp[0] == NULL || ac != 1 || av[1])
