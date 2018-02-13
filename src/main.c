@@ -127,6 +127,20 @@ void display_pause(sfRenderWindow *window, sprite_t **bg, sprite_t **brk)
 	sfRenderWindow_display(window);
 }
 
+void button_game(sprite_t **ing, sfEvent event)
+{
+	int i = 0;
+
+	for (i = 0; i < 25; i = i + 1)
+		if (event.mouseMove.x  > ing[i]->v_sprt.x &&
+		    event.mouseMove.x < ing[i]->v_sprt.x + 100 &&
+		    event.mouseMove.y > ing[i]->v_sprt.y &&
+		    event.mouseMove.y < ing[i]->v_sprt.y + 100)
+			ing[i]->r_sprt.top = 100;
+		else
+			ing[i]->r_sprt.top = 0;
+}
+
 void touch_game(sfRenderWindow *window, sprite_t **bg)
 {
 	if (sfKeyboard_isKeyPressed(sfKeyEscape))
@@ -141,7 +155,7 @@ void drawer_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
 
 	sfRenderWindow_drawSprite(window, bg[2]->s_sprt, NULL);
 	sfRenderWindow_drawSprite(window, bg[3]->s_sprt, NULL);
-	for(i = 0; i < 24; i = i + 1)
+	for(i = 0; i < 25; i = i + 1)
 		sfRenderWindow_drawSprite(window, ing[i]->s_sprt, NULL);
 }
 
@@ -149,7 +163,7 @@ void game_setsprite(sprite_t **ing)
 {	
 	int i = 0;
 
-	for(i = 0; i < 24; i = i + 1)
+	for(i = 0; i < 25; i = i + 1)
 		sfSprite_setTextureRect(ing[i]->s_sprt, ing[i]->r_sprt);
 }
 
@@ -164,6 +178,7 @@ void display_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
 		if (event.type == sfEvtKeyPressed) {
 			touch_game(window, bg);
 		}
+		button_game(ing, event);
 	}
 	game_setsprite(ing);
 	drawer_game(window, bg, ing);
@@ -226,19 +241,19 @@ sprite_t **fill_ing_0_2(sprite_t **ing)
 sprite_t **fill_ing_3_5(sprite_t **ing)
 {
 	ing[3] = malloc(sizeof(sprite_t) * 1);
-	ing[3] = create_sprite(ing[3], "rsrc/pictures/beer.png");
+	ing[3] = create_sprite(ing[3], "rsrc/pictures/glacage.png");
 	ing[3]->v_sprt.x = 1820;
 	ing[3]->v_sprt.y = 100;
 	ing[3]->r_sprt = create_rect_ing(ing[3]->r_sprt);
 	sfSprite_setPosition(ing[3]->s_sprt, ing[3]->v_sprt);
 	ing[4] = malloc(sizeof(sprite_t) * 1);
-	ing[4] = create_sprite(ing[4], "rsrc/pictures/beer.png");
+	ing[4] = create_sprite(ing[4], "rsrc/pictures/conffetis.png");
 	ing[4]->v_sprt.x = 1720;
 	ing[4]->v_sprt.y = 100;
 	ing[4]->r_sprt = create_rect_ing(ing[4]->r_sprt);
 	sfSprite_setPosition(ing[4]->s_sprt, ing[4]->v_sprt);
 	ing[5] = malloc(sizeof(sprite_t) * 1);
-	ing[5] = create_sprite(ing[5], "rsrc/pictures/beer.png");
+	ing[5] = create_sprite(ing[5], "rsrc/pictures/sauce_tmt.png");
 	ing[5]->v_sprt.x = 1620;
 	ing[5]->v_sprt.y = 100;
 	ing[5]->r_sprt = create_rect_ing(ing[5]->r_sprt);
@@ -248,19 +263,19 @@ sprite_t **fill_ing_3_5(sprite_t **ing)
 sprite_t **fill_ing_6_8(sprite_t **ing)
 {
 	ing[6] = malloc(sizeof(sprite_t) * 1);
-	ing[6] = create_sprite(ing[6], "rsrc/pictures/beer.png");
+	ing[6] = create_sprite(ing[6], "rsrc/pictures/mayo.png");
 	ing[6]->v_sprt.x = 1820;
 	ing[6]->v_sprt.y = 200;
 	ing[6]->r_sprt = create_rect_ing(ing[6]->r_sprt);
 	sfSprite_setPosition(ing[6]->s_sprt, ing[6]->v_sprt);
 	ing[7] = malloc(sizeof(sprite_t) * 1);
-	ing[7] = create_sprite(ing[7], "rsrc/pictures/beer.png");
+	ing[7] = create_sprite(ing[7], "rsrc/pictures/ketchup.png");
 	ing[7]->v_sprt.x = 1720;
 	ing[7]->v_sprt.y = 200;
 	ing[7]->r_sprt = create_rect_ing(ing[7]->r_sprt);
 	sfSprite_setPosition(ing[7]->s_sprt, ing[7]->v_sprt);
 	ing[8] = malloc(sizeof(sprite_t) * 1);
-	ing[8] = create_sprite(ing[8], "rsrc/pictures/beer.png");
+	ing[8] = create_sprite(ing[8], "rsrc/pictures/vinaigrette.png");
 	ing[8]->v_sprt.x = 1620;
 	ing[8]->v_sprt.y = 200;
 	ing[8]->r_sprt = create_rect_ing(ing[8]->r_sprt);
@@ -270,19 +285,19 @@ sprite_t **fill_ing_6_8(sprite_t **ing)
 sprite_t **fill_ing_9_11(sprite_t **ing)
 {
 	ing[9] = malloc(sizeof(sprite_t) * 1);
-	ing[9] = create_sprite(ing[9], "rsrc/pictures/beer.png");
+	ing[9] = create_sprite(ing[9], "rsrc/pictures/donnut.png");
 	ing[9]->v_sprt.x = 1820;
 	ing[9]->v_sprt.y = 300;
 	ing[9]->r_sprt = create_rect_ing(ing[9]->r_sprt);
 	sfSprite_setPosition(ing[9]->s_sprt, ing[9]->v_sprt);
 	ing[10] = malloc(sizeof(sprite_t) * 1);
-	ing[10] = create_sprite(ing[10], "rsrc/pictures/beer.png");
+	ing[10] = create_sprite(ing[10], "rsrc/pictures/pain.png");
 	ing[10]->v_sprt.x = 1720;
 	ing[10]->v_sprt.y = 300;
 	ing[10]->r_sprt = create_rect_ing(ing[10]->r_sprt);
 	sfSprite_setPosition(ing[10]->s_sprt, ing[10]->v_sprt);
 	ing[11] = malloc(sizeof(sprite_t) * 1);
-	ing[11] = create_sprite(ing[11], "rsrc/pictures/beer.png");
+	ing[11] = create_sprite(ing[11], "rsrc/pictures/pate_pizza.png");
 	ing[11]->v_sprt.x = 1620;
 	ing[11]->v_sprt.y = 300;
 	ing[11]->r_sprt = create_rect_ing(ing[11]->r_sprt);
@@ -292,19 +307,19 @@ sprite_t **fill_ing_9_11(sprite_t **ing)
 sprite_t **fill_ing_12_14(sprite_t **ing)
 {
 	ing[12] = malloc(sizeof(sprite_t) * 1);
-	ing[12] = create_sprite(ing[12], "rsrc/pictures/fanta_b.png");
+	ing[12] = create_sprite(ing[12], "rsrc/pictures/cornichon.png");
 	ing[12]->v_sprt.x = 1820;
 	ing[12]->v_sprt.y = 400;
 	ing[12]->r_sprt = create_rect_ing(ing[12]->r_sprt);
 	sfSprite_setPosition(ing[12]->s_sprt, ing[12]->v_sprt);
 	ing[13] = malloc(sizeof(sprite_t) * 1);
-	ing[13] = create_sprite(ing[13], "rsrc/pictures/beer.png");
+	ing[13] = create_sprite(ing[13], "rsrc/pictures/oignon.png");
 	ing[13]->v_sprt.x = 1720;
 	ing[13]->v_sprt.y = 400;
 	ing[13]->r_sprt = create_rect_ing(ing[13]->r_sprt);
 	sfSprite_setPosition(ing[13]->s_sprt, ing[13]->v_sprt);
 	ing[14] = malloc(sizeof(sprite_t) * 1);
-	ing[14] = create_sprite(ing[14], "rsrc/pictures/beer.png");
+	ing[14] = create_sprite(ing[14], "rsrc/pictures/olive.png");
 	ing[14]->v_sprt.x = 1620;
 	ing[14]->v_sprt.y = 400;
 	ing[14]->r_sprt = create_rect_ing(ing[14]->r_sprt);
@@ -314,19 +329,19 @@ sprite_t **fill_ing_12_14(sprite_t **ing)
 sprite_t **fill_ing_15_17(sprite_t **ing)
 {
 	ing[15] = malloc(sizeof(sprite_t) * 1);
-	ing[15] = create_sprite(ing[15], "rsrc/pictures/beer.png");
+	ing[15] = create_sprite(ing[15], "rsrc/pictures/jambon.png");
 	ing[15]->v_sprt.x = 1820;
 	ing[15]->v_sprt.y = 500;
 	ing[15]->r_sprt = create_rect_ing(ing[15]->r_sprt);
 	sfSprite_setPosition(ing[15]->s_sprt, ing[15]->v_sprt);
 	ing[16] = malloc(sizeof(sprite_t) * 1);
-	ing[16] = create_sprite(ing[16], "rsrc/pictures/beer.png");
+	ing[16] = create_sprite(ing[16], "rsrc/pictures/emental.png");
 	ing[16]->v_sprt.x = 1720;
 	ing[16]->v_sprt.y = 500;
 	ing[16]->r_sprt = create_rect_ing(ing[16]->r_sprt);
 	sfSprite_setPosition(ing[16]->s_sprt, ing[16]->v_sprt);
 	ing[17] = malloc(sizeof(sprite_t) * 1);
-	ing[17] = create_sprite(ing[17], "rsrc/pictures/beer.png");
+	ing[17] = create_sprite(ing[17], "rsrc/pictures/tomate.png");
 	ing[17]->v_sprt.x = 1620;
 	ing[17]->v_sprt.y = 500;
 	ing[17]->r_sprt = create_rect_ing(ing[17]->r_sprt);
@@ -336,19 +351,19 @@ sprite_t **fill_ing_15_17(sprite_t **ing)
 sprite_t **fill_ing_18_20(sprite_t **ing)
 {
 	ing[18] = malloc(sizeof(sprite_t) * 1);
-	ing[18] = create_sprite(ing[18], "rsrc/pictures/beer.png");
+	ing[18] = create_sprite(ing[18], "rsrc/pictures/steak.png");
 	ing[18]->v_sprt.x = 1820;
 	ing[18]->v_sprt.y = 600;
 	ing[18]->r_sprt = create_rect_ing(ing[18]->r_sprt);
 	sfSprite_setPosition(ing[18]->s_sprt, ing[18]->v_sprt);
 	ing[19] = malloc(sizeof(sprite_t) * 1);
-	ing[19] = create_sprite(ing[19], "rsrc/pictures/beer.png");
+	ing[19] = create_sprite(ing[19], "rsrc/pictures/steak_vege.png");
 	ing[19]->v_sprt.x = 1720;
 	ing[19]->v_sprt.y = 600;
 	ing[19]->r_sprt = create_rect_ing(ing[19]->r_sprt);
 	sfSprite_setPosition(ing[19]->s_sprt, ing[19]->v_sprt);
 	ing[20] = malloc(sizeof(sprite_t) * 1);
-	ing[20] = create_sprite(ing[20], "rsrc/pictures/beer.png");
+	ing[20] = create_sprite(ing[20], "rsrc/pictures/salade_b.png");
 	ing[20]->v_sprt.x = 1620;
 	ing[20]->v_sprt.y = 600;
 	ing[20]->r_sprt = create_rect_ing(ing[20]->r_sprt);
@@ -358,19 +373,19 @@ sprite_t **fill_ing_18_20(sprite_t **ing)
 sprite_t **fill_ing_21_23(sprite_t **ing)
 {
 	ing[21] = malloc(sizeof(sprite_t) * 1);
-	ing[21] = create_sprite(ing[21], "rsrc/pictures/coca_b.png");
+	ing[21] = create_sprite(ing[21], "rsrc/pictures/frites.png");
 	ing[21]->v_sprt.x = 1820;
 	ing[21]->v_sprt.y = 700;
 	ing[21]->r_sprt = create_rect_ing(ing[21]->r_sprt);
 	sfSprite_setPosition(ing[21]->s_sprt, ing[21]->v_sprt);
 	ing[22] = malloc(sizeof(sprite_t) * 1);
-	ing[22] = create_sprite(ing[22], "rsrc/pictures/fanta_b.png");
+	ing[22] = create_sprite(ing[22], "rsrc/pictures/sel.png");
 	ing[22]->v_sprt.x = 1720;
 	ing[22]->v_sprt.y = 700;
 	ing[22]->r_sprt = create_rect_ing(ing[22]->r_sprt);
 	sfSprite_setPosition(ing[22]->s_sprt, ing[22]->v_sprt);
 	ing[23] = malloc(sizeof(sprite_t) * 1);
-	ing[23] = create_sprite(ing[23], "rsrc/pictures/fanta_b.png");
+	ing[23] = create_sprite(ing[23], "rsrc/pictures/pause_gb.png");
 	ing[23]->v_sprt.x = 1620;
 	ing[23]->v_sprt.y = 700;
 	ing[23]->r_sprt = create_rect_ing(ing[23]->r_sprt);
@@ -388,6 +403,12 @@ sprite_t **fill_ing(sprite_t **ing)
 	ing = fill_ing_15_17(ing);
 	ing = fill_ing_18_20(ing);
 	ing = fill_ing_21_23(ing);
+	ing[24] = malloc(sizeof(sprite_t) * 1);
+	ing[24] = create_sprite(ing[24], "rsrc/pictures/info.png");
+	ing[24]->v_sprt.x = 1520;
+	ing[24]->v_sprt.y = 0;
+	ing[24]->r_sprt = create_rect_ing(ing[24]->r_sprt);
+	sfSprite_setPosition(ing[24]->s_sprt, ing[24]->v_sprt);
 	return (ing);
 }
 
@@ -429,7 +450,7 @@ int main(int ac, char **av, char **envp)
 	sfRenderWindow *window = malloc(sizeof(sfRenderWindow *) * 1);
 	sprite_t **bg = malloc(sizeof(sprite_t *) * 4);
 	sprite_t **brk = malloc(sizeof(sprite_t *) * 2);
-	sprite_t **ing = malloc(sizeof(sprite_t *) * 24);
+	sprite_t **ing = malloc(sizeof(sprite_t *) * 25);
 	sfImage *icn = sfImage_createFromFile("rsrc/pictures/icon.png");
 	sfUint8 *icon = (sfUint8 *)sfImage_getPixelsPtr(icn);
 
@@ -440,8 +461,8 @@ int main(int ac, char **av, char **envp)
 	brk = fill_brk(brk);
 	ing = fill_ing(ing);
 	window = renderwindow_create(window);
-	sfRenderWindow_setFramerateLimit(window, 60);
 	sfRenderWindow_setIcon(window, 32, 32, icon);
+	sfRenderWindow_setFramerateLimit(window, 60);
 	game_loop(window, bg, brk, ing);
 	return (0);
 }
