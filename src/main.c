@@ -528,6 +528,7 @@ sprite_t **fill_ing_21_23(sprite_t **ing)
 	ing[23]->v_sprt.y = 700;
 	ing[23]->r_sprt = create_rect_ing(ing[23]->r_sprt);
 	sfSprite_setPosition(ing[23]->s_sprt, ing[23]->v_sprt);
+	ing = fill_ing_18_20(ing);
 	return (ing);
 }
 
@@ -541,7 +542,6 @@ sprite_t **fill_ing(sprite_t **ing)
 	ing = fill_ing_9_11(ing);
 	ing = fill_ing_12_14(ing);
 	ing = fill_ing_15_17(ing);
-	ing = fill_ing_18_20(ing);
 	ing = fill_ing_21_23(ing);
 	ing[24] = malloc(sizeof(sprite_t) * 1);
 	ing[24] = create_sprite(ing[24], "rsrc/pictures/info.png");
