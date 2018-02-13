@@ -141,12 +141,40 @@ void button_game(sprite_t **ing, sfEvent event)
 			ing[i]->r_sprt.top = 0;
 }
 
-void touch_game(sfRenderWindow *window, sprite_t **bg)
+void show_menu(sprite_t **ing)
+{
+	int i = 0;
+
+	for (i = 0; i < 25; i = i + 1) {
+		ing[i]->v_sprt.x = ing[i]->v_sprt.x - 300;
+		sfSprite_setPosition(ing[i]->s_sprt, ing[i]->v_sprt);
+	}
+	ing[24]->o_sprt = 1;
+}
+
+void hide_menu(sprite_t **ing)
+{
+	int i = 0;
+
+	for (i = 0; i < 25; i = i + 1) {
+		ing[i]->v_sprt.x = ing[i]->v_sprt.x + 300;
+		sfSprite_setPosition(ing[i]->s_sprt, ing[i]->v_sprt);
+	}
+	ing[24]->o_sprt = 0;
+}
+
+void touch_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
 {
 	if (sfKeyboard_isKeyPressed(sfKeyEscape))
 		bg[0]->o_sprt = 2;
 	if (sfKeyboard_isKeyPressed(sfKeyQ))
 		sfRenderWindow_close(window);
+	if (sfKeyboard_isKeyPressed(sfKeyTab)) {
+		if (ing[24]->o_sprt == 0)
+			show_menu(ing);
+		else if (ing[24]->o_sprt == 1)
+			hide_menu(ing);
+	}
 }
 
 void drawer_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
@@ -176,7 +204,7 @@ void display_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
 			sfRenderWindow_close(window);
 		}
 		if (event.type == sfEvtKeyPressed) {
-			touch_game(window, bg);
+			touch_game(window, bg, ing);
 		}
 		button_game(ing, event);
 	}
@@ -409,6 +437,7 @@ sprite_t **fill_ing(sprite_t **ing)
 	ing[24]->v_sprt.y = 0;
 	ing[24]->r_sprt = create_rect_ing(ing[24]->r_sprt);
 	sfSprite_setPosition(ing[24]->s_sprt, ing[24]->v_sprt);
+	ing[24]->o_sprt = 1;
 	return (ing);
 }
 
