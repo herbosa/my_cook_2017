@@ -18,16 +18,17 @@ sfRenderWindow *renderwindow_create(sfRenderWindow *wd)
 	return (wd);
 }
 
-void start_disp(sfRenderWindow *window, sfSprite *sprite_start)
+void start_disp(sfRenderWindow *window, sfSprite *sprite_start, sprite_t **bg)
 {
         sfText *start = sfText_create();
         sfFont *font = sfFont_createFromFile("./rsrc/font/font.ttf");
         sfVector2f origin = {850, 320};
 
         sfRenderWindow_drawSprite(window, sprite_start, NULL);
-        sfText_setString(start, "Press any\n key to\n  start");
+	sfRenderWindow_drawSprite(window, bg[4]->s_sprt, NULL);
+        sfText_setString(start, "Press \nenter or\nclick here\nto start");
         sfText_setFont(start, font);
-        sfText_setCharacterSize(start, 90);
+        sfText_setCharacterSize(start, 80);
 	sfText_setColor(start, sfColor_fromRGB(0, 0, 0));
 	sfText_move(start, origin);
         sfRenderWindow_drawText(window, start, NULL);
@@ -40,23 +41,44 @@ void touch_home(sfRenderWindow *window, sprite_t **bg)
 {
 	if (sfKeyboard_isKeyPressed(sfKeyQ))
 		sfRenderWindow_close(window);
-	else
+	else if (sfKeyboard_isKeyPressed(sfKeyReturn))
 		bg[0]->o_sprt = 1;
+}
+
+void clicked_home(sfEvent event, sprite_t **bg, sfRenderWindow *window)
+{
+	if (event.mouseButton.x  > bg[4]->v_sprt.x &&
+		event.mouseButton.x < bg[4]->v_sprt.x + 100 &&
+		event.mouseButton.y > bg[4]->v_sprt.y &&
+		event.mouseButton.y < bg[4]->v_sprt.y + 100)
+		sfRenderWindow_close(window);
+	if (event.mouseMove.x  > bg[4]->v_sprt.x &&
+		event.mouseMove.x < bg[4]->v_sprt.x + 100 &&
+		event.mouseMove.y > bg[4]->v_sprt.y &&
+		event.mouseMove.y < bg[4]->v_sprt.y + 100)
+		bg[4]->r_sprt.top = 100;
+	else
+		bg[4]->r_sprt.top = 0;
+	if (event.mouseButton.x > 824 &&
+		event.mouseButton.x < 824 + 520 &&
+		event.mouseButton.y > 303 &&
+		event.mouseButton.y < 303 + 390)
+		bg[0]->o_sprt = 1;
+	 sfSprite_setTextureRect(bg[4]->s_sprt, bg[4]->r_sprt);
 }
 
 void display_home(sfRenderWindow *window, sprite_t **bg)
 {
 	sfEvent event;
 
+	start_disp(window, bg[0]->s_sprt, bg);
 	while (sfRenderWindow_pollEvent(window, &event)) {
-		if (event.type == sfEvtClosed) {
+		if (event.type == sfEvtClosed)
 			sfRenderWindow_close(window);
-		}
-		if (event.type == sfEvtKeyPressed) {
+		if (event.type == sfEvtKeyPressed)
 			touch_home(window, bg);
-		}
+		clicked_home(event, bg, window);
 	}
-	start_disp(window, bg[0]->s_sprt);
 	sfRenderWindow_display(window);
 }
 
@@ -64,6 +86,7 @@ void pause_setsprite(sprite_t **brk)
 {
 	sfSprite_setTextureRect(brk[0]->s_sprt, brk[0]->r_sprt);
 	sfSprite_setTextureRect(brk[1]->s_sprt, brk[1]->r_sprt);
+	sfSprite_setTextureRect(brk[2]->s_sprt, brk[2]->r_sprt);
 }
 
 void touch_pause(sfRenderWindow *window, sprite_t **bg, sprite_t **brk)
@@ -72,24 +95,22 @@ void touch_pause(sfRenderWindow *window, sprite_t **bg, sprite_t **brk)
 		bg[0]->o_sprt = 1;
 	if (sfKeyboard_isKeyPressed(sfKeyQ))
 		sfRenderWindow_close(window);
+	if (sfKeyboard_isKeyPressed(sfKeyM))
+		bg[0]->o_sprt = 0;;
 }
 
 void button_pause(sprite_t **brk, sfEvent event)
 {
-	if (event.mouseMove.x  > brk[0]->v_sprt.x &&
-		event.mouseMove.x < brk[0]->v_sprt.x + 200 &&
-		event.mouseMove.y > brk[0]->v_sprt.y &&
-		event.mouseMove.y < brk[0]->v_sprt.y + 200)
-		brk[0]->r_sprt.top = 200;
-	else
-		brk[0]->r_sprt.top = 0;
-	if (event.mouseMove.x  > brk[1]->v_sprt.x &&
-		event.mouseMove.x < brk[1]->v_sprt.x + 200 &&
-		event.mouseMove.y > brk[1]->v_sprt.y &&
-		event.mouseMove.y < brk[1]->v_sprt.y + 200)
-		brk[1]->r_sprt.top = 200;
-	else
-		brk[1]->r_sprt.top = 0;
+	int i = 0;
+
+	for (i = 0; i < 3; i = i + 1)
+		if (event.mouseMove.x  > brk[i]->v_sprt.x &&
+			event.mouseMove.x < brk[i]->v_sprt.x + 200 &&
+			event.mouseMove.y > brk[i]->v_sprt.y &&
+			event.mouseMove.y < brk[i]->v_sprt.y + 200)
+			brk[i]->r_sprt.top = 200;
+		else
+			brk[i]->r_sprt.top = 0;
 }
 
 void clicked_pause(sfRenderWindow *window, sprite_t **bg, sprite_t **brk,
@@ -105,6 +126,11 @@ void clicked_pause(sfRenderWindow *window, sprite_t **bg, sprite_t **brk,
 		event.mouseButton.y > brk[1]->v_sprt.y &&
 		event.mouseButton.y < brk[1]->v_sprt.y + 200)
 		bg[0]->o_sprt = 1;
+	if (event.mouseButton.x > brk[2]->v_sprt.x &&
+		event.mouseButton.x < brk[2]->v_sprt.x + 200 &&
+		event.mouseButton.y > brk[2]->v_sprt.y &&
+		event.mouseButton.y < brk[2]->v_sprt.y + 200)
+		bg[0]->o_sprt = 0;
 }
 
 void display_pause(sfRenderWindow *window, sprite_t **bg, sprite_t **brk)
@@ -124,6 +150,7 @@ void display_pause(sfRenderWindow *window, sprite_t **bg, sprite_t **brk)
 	sfRenderWindow_drawSprite(window, bg[1]->s_sprt, NULL);
 	sfRenderWindow_drawSprite(window, brk[0]->s_sprt, NULL);
 	sfRenderWindow_drawSprite(window, brk[1]->s_sprt, NULL);
+	sfRenderWindow_drawSprite(window, brk[2]->s_sprt, NULL);
 	sfRenderWindow_display(window);
 }
 
@@ -455,6 +482,12 @@ sprite_t **fill_brk(sprite_t **brk)
 	brk[1]->v_sprt.y = 700;
 	brk[1]->r_sprt = create_rect(brk[1]->r_sprt);
 	sfSprite_setPosition(brk[1]->s_sprt, brk[1]->v_sprt);
+	brk[2] = malloc(sizeof(sprite_t) * 1);
+	brk[2] = create_sprite(brk[2], "rsrc/pictures/menu.png");
+	brk[2]->v_sprt.x = 800;
+	brk[2]->v_sprt.y = 700;
+	brk[2]->r_sprt = create_rect(brk[2]->r_sprt);
+	sfSprite_setPosition(brk[2]->s_sprt, brk[2]->v_sprt);
 	return (brk);
 }
 
@@ -469,6 +502,12 @@ sprite_t **fill_bg(sprite_t **bg)
 	bg[2] = create_sprite(bg[2], "rsrc/pictures/background.png");
 	bg[3] = malloc(sizeof(sprite_t) * 1);
 	bg[3] = create_sprite(bg[3], "rsrc/pictures/contoire.png");
+	bg[4] = malloc(sizeof(sprite_t) * 1);	
+	bg[4] = create_sprite(bg[4], "rsrc/pictures/quit_bg.png");
+	bg[4]->v_sprt.x = 0;
+	bg[4]->v_sprt.y = 0;
+	bg[4]->r_sprt = create_rect_ing(bg[4]->r_sprt);
+	sfSprite_setPosition(bg[4]->s_sprt, bg[4]->v_sprt);
 	return (bg);
 }
 
@@ -477,8 +516,8 @@ sprite_t **fill_bg(sprite_t **bg)
 int main(int ac, char **av, char **envp)
 {
 	sfRenderWindow *window = malloc(sizeof(sfRenderWindow *) * 1);
-	sprite_t **bg = malloc(sizeof(sprite_t *) * 4);
-	sprite_t **brk = malloc(sizeof(sprite_t *) * 2);
+	sprite_t **bg = malloc(sizeof(sprite_t *) * 5);
+	sprite_t **brk = malloc(sizeof(sprite_t *) * 4);
 	sprite_t **ing = malloc(sizeof(sprite_t *) * 25);
 	sfImage *icn = sfImage_createFromFile("rsrc/pictures/icon.png");
 	sfUint8 *icon = (sfUint8 *)sfImage_getPixelsPtr(icn);
