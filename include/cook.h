@@ -12,5 +12,8 @@
 #include <unistd.h>
 #include "my_printf.h"
 #include "graph.h"
+#include <SFML/System/Export.h>
+#include <SFML/System/Time.h>
+#include <SFML/System/Types.h>
 
 #endif

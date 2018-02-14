@@ -36,6 +36,23 @@ void start_disp(sfRenderWindow *window, sfSprite *sprite_start, sprite_t **bg)
         sfFont_destroy(font);
 }
 
+void help_disp(sfRenderWindow *window, sprite_t **bg)
+{
+        sfText *start = sfText_create();
+        sfFont *font = sfFont_createFromFile("./rsrc/font/font.ttf");
+        sfVector2f origin = {250, 320};
+
+	sfRenderWindow_drawSprite(window, bg[5]->s_sprt, NULL);
+        sfText_setString(start, "BLABLABLABLABLABLABLABLABLABLA");
+        sfText_setFont(start, font);
+        sfText_setCharacterSize(start, 50);
+	sfText_setColor(start, sfColor_fromRGB(0, 0, 0));
+	sfText_move(start, origin);
+        sfRenderWindow_drawText(window, start, NULL);
+        sfText_destroy(start);
+        sfFont_destroy(font);
+}
+
 
 void touch_home(sfRenderWindow *window, sprite_t **bg)
 {
@@ -43,6 +60,17 @@ void touch_home(sfRenderWindow *window, sprite_t **bg)
 		sfRenderWindow_close(window);
 	else if (sfKeyboard_isKeyPressed(sfKeyReturn))
 		bg[0]->o_sprt = 1;
+	else if (sfKeyboard_isKeyPressed(sfKeyH))
+		bg[0]->o_sprt = 3;
+}
+
+void touch_help(sfRenderWindow *window, sprite_t **bg)
+{
+	if (sfKeyboard_isKeyPressed(sfKeyQ))
+		sfRenderWindow_close(window);
+	if (sfKeyboard_isKeyPressed(sfKeyReturn) ||
+		sfKeyboard_isKeyPressed(sfKeyH))
+		bg[0]->o_sprt = 0;
 }
 
 void clicked_home(sfEvent event, sprite_t **bg, sfRenderWindow *window)
@@ -78,6 +106,20 @@ void display_home(sfRenderWindow *window, sprite_t **bg)
 		if (event.type == sfEvtKeyPressed)
 			touch_home(window, bg);
 		clicked_home(event, bg, window);
+	}
+	sfRenderWindow_display(window);
+}
+
+void display_help(sfRenderWindow *window, sprite_t **bg)
+{
+	sfEvent event;
+
+	help_disp(window, bg);
+	while (sfRenderWindow_pollEvent(window, &event)) {
+		if (event.type == sfEvtClosed)
+			sfRenderWindow_close(window);
+		if (event.type == sfEvtKeyPressed)
+			touch_help(window, bg);
 	}
 	sfRenderWindow_display(window);
 }
@@ -498,6 +540,13 @@ void disp_burger(sfRenderWindow *window, sprite_t **ing)
 	sfRenderWindow_drawSprite(window, ing[25]->s_sprt, NULL);
 }
 
+void disp_time(sfRenderWindow *window, sprite_t **ing)
+{
+	ing[36]->r_sprt.top = ing[36]->o_sprt * 100;
+	sfSprite_setTextureRect(ing[36]->s_sprt, ing[36]->r_sprt);
+	sfRenderWindow_drawSprite(window, ing[36]->s_sprt, NULL);
+}
+
 void disp_vege_burger(sfRenderWindow *window, sprite_t **ing)
 {
 	if (ing[27]->o_sprt == 0 || ing[27]->o_sprt == 1)
@@ -635,6 +684,7 @@ void drawer_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
 	sfRenderWindow_drawSprite(window, bg[3]->s_sprt, NULL);
 	for (i = 0; i < 25; i = i + 1)
 		sfRenderWindow_drawSprite(window, ing[i]->s_sprt, NULL);
+	disp_time(window, ing);
 	disp_beer(window, ing);
 	disp_coca(window, ing);
 	disp_fanta(window, ing);
@@ -690,15 +740,22 @@ void make_comandes(sprite_t **ing)
 	make_burgers_drink(ing);
 }
 
-void display_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
+void clean_game_bool(sprite_t **ing)
 {
-	sfEvent event;
 	int i = 0;
 
 	for (i = 0; i < 24; i = i + 1)
 		ing[i]->o_sprt = 0;
 	ing[26]->o_sprt = 0;
 	ing[29]->o_sprt = 0;
+}
+
+void display_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing, int sec)
+{
+	sfEvent event;
+
+	if (sec == 1)
+		ing[36]->o_sprt = ing[36]->o_sprt + 1;
 	while (sfRenderWindow_pollEvent(window, &event)) {
 		if (event.type == sfEvtClosed)
 			sfRenderWindow_close(window);
@@ -718,13 +775,24 @@ void display_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
 
 void game_loop(sfRenderWindow *window, sprite_t **bg, sprite_t **brk, sprite_t **ing)
 {
+	sfClock *time = sfClock_create();
+	int i = 0;
+	int time_i = 1000000;
+
 	while (sfRenderWindow_isOpen(window)) {
+		if (sfTime_asMicroseconds(sfClock_getElapsedTime(time)) > time_i) {
+			i = 1;
+			sfClock_restart(time);
+		} else
+			i = 0;
 		if (bg[0]->o_sprt == 0)
 			display_home(window, bg);
 		if (bg[0]->o_sprt == 1)
-			display_game(window, bg, ing);
+			display_game(window, bg, ing, i);
 		if (bg[0]->o_sprt == 2)
 			display_pause(window, bg, brk);
+		if (bg[0]->o_sprt == 3)
+			display_help(window, bg);
 	}
 }
 
@@ -1020,6 +1088,18 @@ sprite_t **fill_ing_33_35(sprite_t **ing)
 	return (ing);
 }
 
+sprite_t **fill_ing_36(sprite_t **ing)
+{
+	ing[36] = malloc(sizeof(sprite_t) * 1);
+	ing[36] = create_sprite(ing[36], "rsrc/pictures/timer.png");
+	ing[36]->v_sprt.x = 0;
+	ing[36]->v_sprt.y = 0;
+	ing[36]->r_sprt = create_rect_ing(ing[36]->r_sprt);
+	ing[36]->o_sprt = 0;
+	sfSprite_setPosition(ing[36]->s_sprt, ing[36]->v_sprt);
+	return (ing);
+}
+
 sprite_t **fill_ing(sprite_t **ing)
 {
 	int i = 0;
@@ -1036,10 +1116,11 @@ sprite_t **fill_ing(sprite_t **ing)
 	ing = fill_ing_27_29(ing);
 	ing = fill_ing_30_32(ing);
 	ing = fill_ing_33_35(ing);
+	ing = fill_ing_36(ing);
 	for (i = 0; i < 24; i = i + 1)
 		ing[i]->o_sprt = 0;
 	ing[24]->o_sprt = 1;
-	ing[36] = 0;
+	ing[37] = 0;
 	return (ing);
 }
 
@@ -1080,12 +1161,11 @@ sprite_t **fill_bg(sprite_t **bg)
 	bg[3] = create_sprite(bg[3], "rsrc/pictures/contoire.png");
 	bg[4] = malloc(sizeof(sprite_t) * 1);	
 	bg[4] = create_sprite(bg[4], "rsrc/pictures/quit_bg.png");
-	bg[4]->v_sprt.x = 0;
-	bg[4]->v_sprt.y = 0;
 	bg[4]->r_sprt = create_rect_ing(bg[4]->r_sprt);
-	sfSprite_setPosition(bg[4]->s_sprt, bg[4]->v_sprt);
 	sfSprite_setTextureRect(bg[4]->s_sprt, bg[4]->r_sprt);
-	bg[5] = 0;
+	bg[5] = malloc(sizeof(sprite_t) * 1);
+	bg[5] = create_sprite(bg[5], "rsrc/pictures/help.png");
+	bg[6] = 0;
 	return (bg);
 }
 
@@ -1094,9 +1174,9 @@ sprite_t **fill_bg(sprite_t **bg)
 int main(int ac, char **av, char **envp)
 {
 	sfRenderWindow *window = malloc(sizeof(sfRenderWindow *) * 1);
-	sprite_t **bg = malloc(sizeof(sprite_t *) * 5);
+	sprite_t **bg = malloc(sizeof(sprite_t *) * 6);
 	sprite_t **brk = malloc(sizeof(sprite_t *) * 4);
-	sprite_t **ing = malloc(sizeof(sprite_t *) * 36);
+	sprite_t **ing = malloc(sizeof(sprite_t *) * 38);
 	sfImage *icn = sfImage_createFromFile("rsrc/pictures/icon.png");
 	sfUint8 *icon = (sfUint8 *)sfImage_getPixelsPtr(icn);
 
