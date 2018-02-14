@@ -7,6 +7,16 @@
 
 #include "cook.h"
 
+char *remove_str_elem(char *str, int i)
+{
+	while (str[i + 1]) {
+		str[i] = str[i + 1];
+		i = i + 1;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
 sfRenderWindow *renderwindow_create(sfRenderWindow *wd)
 {
 	sfVideoMode v_mode;
@@ -277,7 +287,18 @@ void make_donut(sprite_t **ing)
 		ing[31]->o_sprt = 6;
 }
 
-void disp_donut(sfRenderWindow *window, sprite_t **ing)
+void rm_from_cmd(game_t *game, int nb_cmd)
+{
+	int  i = 0;
+
+	while (game->cmd[i]) {
+		if (game->cmd[i] == nb_cmd)
+			game->cmd = remove_str_elem(game->cmd, i);
+		i = i + 1;
+	}
+}
+
+void disp_donut(sfRenderWindow *window, sprite_t **ing, game_t *game)
 {
 	if (ing[31]->o_sprt == 0)
 		return;
@@ -290,7 +311,7 @@ void disp_donut(sfRenderWindow *window, sprite_t **ing)
 		sfSprite_setPosition(ing[31]->s_sprt, ing[31]->v_sprt);
 	}
 	if (ing[31]->o_sprt == 6) {
-		// commande fini
+		rm_from_cmd(game, 3);
 		ing[31]->o_sprt = 0;
 		return;
 	}
@@ -396,12 +417,12 @@ void make_coca(sprite_t **ing)
 		ing[33]->o_sprt = 10;
 }
 
-void disp_coca(sfRenderWindow *window, sprite_t **ing)
+void disp_coca(sfRenderWindow *window, sprite_t **ing, game_t *game)
 {
 	if (ing[33]->o_sprt == 0)
 		return;
 	if (ing[33]->o_sprt == 10) {
-		// commande fini
+		rm_from_cmd(game, 7);
 		ing[33]->o_sprt = 0;
 		return;
 	}
@@ -410,12 +431,12 @@ void disp_coca(sfRenderWindow *window, sprite_t **ing)
 	sfRenderWindow_drawSprite(window, ing[33]->s_sprt, NULL);
 }
 
-void disp_fries(sfRenderWindow *window, sprite_t **ing)
+void disp_fries(sfRenderWindow *window, sprite_t **ing, game_t *game)
 {
 	if (ing[35]->o_sprt == 0)
 		return;
 	if (ing[35]->o_sprt == 10) {
-		// commande fini
+		rm_from_cmd(game, 9);
 		ing[35]->o_sprt = 0;
 		return;
 	}
@@ -448,12 +469,12 @@ void make_fanta(sprite_t **ing)
 		ing[34]->o_sprt = 10;
 }
 
-void disp_fanta(sfRenderWindow *window, sprite_t **ing)
+void disp_fanta(sfRenderWindow *window, sprite_t **ing, game_t *game)
 {
 	if (ing[34]->o_sprt == 0)
 		return;
 	if (ing[34]->o_sprt == 10) {
-		// commande fini
+		rm_from_cmd(game, 6);
 		ing[34]->o_sprt = 0;
 		return;
 	}
@@ -462,12 +483,12 @@ void disp_fanta(sfRenderWindow *window, sprite_t **ing)
 	sfRenderWindow_drawSprite(window, ing[34]->s_sprt, NULL);
 }
 
-void disp_beer(sfRenderWindow *window, sprite_t **ing)
+void disp_beer(sfRenderWindow *window, sprite_t **ing, game_t *game)
 {
 	if (ing[32]->o_sprt == 0)
 		return;
 	if (ing[32]->o_sprt == 9) {
-		// commande fini
+		rm_from_cmd(game, 8);
 		ing[32]->o_sprt = 0;
 		return;
 	}
@@ -476,7 +497,7 @@ void disp_beer(sfRenderWindow *window, sprite_t **ing)
 	sfRenderWindow_drawSprite(window, ing[32]->s_sprt, NULL);
 }
 
-void disp_pizza(sfRenderWindow *window, sprite_t **ing)
+void disp_pizza(sfRenderWindow *window, sprite_t **ing, game_t *game)
 {
 	if (ing[28]->o_sprt == 0)
 		return;
@@ -485,7 +506,7 @@ void disp_pizza(sfRenderWindow *window, sprite_t **ing)
 		sfSprite_setPosition(ing[28]->s_sprt, ing[28]->v_sprt);
 	}
 	if (ing[28]->o_sprt == 10) {
-		// commande fini
+		rm_from_cmd(game, 5);
 		ing[28]->o_sprt = 0;
 		return;
 	}
@@ -530,12 +551,12 @@ void make_salade(sprite_t **ing)
 		ing[30]->o_sprt = 5;
 }
 
-void disp_salade(sfRenderWindow *window, sprite_t **ing)
+void disp_salade(sfRenderWindow *window, sprite_t **ing, game_t *game)
 {
 	if (ing[30]->o_sprt == 0)
 		return;
 	if (ing[30]->o_sprt == 5) {
-		// commande fini
+		rm_from_cmd(game, 4);
 		ing[30]->o_sprt = 0;
 		return;
 	}
@@ -544,12 +565,12 @@ void disp_salade(sfRenderWindow *window, sprite_t **ing)
 	sfRenderWindow_drawSprite(window, ing[30]->s_sprt, NULL);
 }
 
-void disp_burger(sfRenderWindow *window, sprite_t **ing)
+void disp_burger(sfRenderWindow *window, sprite_t **ing, game_t *game)
 {
 	if (ing[25]->o_sprt == 0)
 		return;
 	if (ing[25]->o_sprt == 9) {
-		// commande fini
+		rm_from_cmd(game, 1);
 		ing[25]->o_sprt = 0;
 		return;
 	}
@@ -565,12 +586,12 @@ void disp_time(sfRenderWindow *window, sprite_t **ing)
 	sfRenderWindow_drawSprite(window, ing[36]->s_sprt, NULL);
 }
 
-void disp_vege_burger(sfRenderWindow *window, sprite_t **ing)
+void disp_vege_burger(sfRenderWindow *window, sprite_t **ing, game_t *game)
 {
 	if (ing[27]->o_sprt == 0 || ing[27]->o_sprt == 1)
 		return;
 	if (ing[27]->o_sprt == 7) {
-		// commande fini
+		rm_from_cmd(game, 2);
 		ing[27]->o_sprt = 0;
 		return;
 	}
@@ -712,7 +733,7 @@ void disp_str(sfRenderWindow *window, char *str, int x, int y)
         sfFont_destroy(font);
 }
 
-void drawer_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
+void drawer_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing, game_t *game)
 {
 	int i = 0;
 
@@ -721,15 +742,15 @@ void drawer_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
 	for (i = 0; i < 25; i = i + 1)
 		sfRenderWindow_drawSprite(window, ing[i]->s_sprt, NULL);
 	disp_time(window, ing);
-	disp_beer(window, ing);
-	disp_coca(window, ing);
-	disp_fanta(window, ing);
-	disp_burger(window, ing);
-	disp_vege_burger(window, ing);
-	disp_pizza(window, ing);
-	disp_salade(window, ing);
-	disp_donut(window, ing);
-	disp_fries(window, ing);
+	disp_beer(window, ing, game);
+	disp_coca(window, ing, game);
+	disp_fanta(window, ing, game);
+	disp_burger(window, ing, game);
+	disp_vege_burger(window, ing, game);
+	disp_pizza(window, ing, game);
+	disp_salade(window, ing, game);
+	disp_donut(window, ing, game);
+	disp_fries(window, ing, game);
 }
 
 void game_setsprite(sprite_t **ing)
@@ -814,7 +835,7 @@ void add_cmd(game_t *game)
 	if (game->lastcmd == 0 ||
 		(game->elapsed_time - (4 + (rand() % 6)))  >= 0) {
 		for (i = 0; game->cmd[i]; i = i + 1);
-		game->cmd[i] = (rand() % 7) + 1;
+		game->cmd[i] = (rand() % 9) + 1;
 		game->cmd[i + 1] = '\0';
 		game->lastcmd = 1;
 		game->elapsed_time = 0;
@@ -827,7 +848,7 @@ void disp_cmd(sfRenderWindow *window, game_t *game)
 {
 	int i = 0;
 
-	for (i = 0; game->cmd[i]; i = i + 1) {
+	for (i = 0; game->cmd[i] && i < 10; i = i + 1) {
 		if (game->cmd[i] == 1)
 			disp_str(window, "BURGER", 10, (50 * i) + 120);
 		if (game->cmd[i] == 2)
@@ -844,6 +865,8 @@ void disp_cmd(sfRenderWindow *window, game_t *game)
 			disp_str(window, "COCA", 10, 50 * i + 120);
 		if (game->cmd[i] == 8)
 			disp_str(window, "BIERRE", 10, 50 * i + 120);
+		if (game->cmd[i] == 9)
+			disp_str(window, "FRIES", 10, 50 * i + 120);
 	}
 }
 
@@ -858,7 +881,7 @@ void display_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing, game_t 
 		bg[0]->o_sprt = 2;
 	game_setsprite(ing);
 	make_comandes(ing);
-	drawer_game(window, bg, ing);
+	drawer_game(window, bg, ing, game);
 	disp_cmd(window, game);
 	sfRenderWindow_display(window);
 }
