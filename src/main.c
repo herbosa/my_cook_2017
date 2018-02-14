@@ -872,10 +872,8 @@ void display_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing, game_t 
 {
 	add_cmd(game);
 	clean_game_bool(ing, bg);
-	if (game->sec == 1) {
+	if (game->sec == 1)
 		ing[36]->o_sprt = ing[36]->o_sprt + 1;
-		game->lastsend = game->lastsend + 1; 
-	}
 	game_event(window, bg, ing);
 	if (ing[23]->o_sprt == 1)
 		bg[0]->o_sprt = 2;
@@ -902,9 +900,7 @@ void fill_game(game_t *game)
 	int j = 0;
 
 	game->sec = 0;
-	game->point = 100;
 	game->lastcmd = 0;
-	game->lastsend = 0;
 	game->elapsed_time = 0;
 	game->cmd = malloc(sizeof(char) * 152);
 	for (j = 0; j < 150; j = j + 1)
@@ -914,7 +910,7 @@ void fill_game(game_t *game)
 void game_loop(sfRenderWindow *window, sprite_t **bg, sprite_t **brk, sprite_t **ing)
 {
 	sfClock *clock = sfClock_create();
-	game_t *game = malloc(sizeof(game_t *) * 1);
+	game_t *game = malloc(sizeof(game_t *) * 10);
 	int j = 0;
 	int time_i = 1000000;
 
@@ -1317,7 +1313,7 @@ sprite_t **fill_bg(sprite_t **bg)
 int main(int ac, char **av, char **envp)
 {
 	sfRenderWindow *window = malloc(sizeof(sfRenderWindow *) * 1);
-	sprite_t **bg = malloc(sizeof(sprite_t *) * 7);
+	sprite_t **bg = malloc(sizeof(sprite_t *) * 8);
 	sprite_t **brk = malloc(sizeof(sprite_t *) * 4);
 	sprite_t **ing = malloc(sizeof(sprite_t *) * 38);
 	sfImage *icn = sfImage_createFromFile("rsrc/pictures/icon.png");
