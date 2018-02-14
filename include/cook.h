@@ -20,8 +20,10 @@ typedef struct game {
 	int sec;
 	char *cmd;
 	int lastcmd;
+	int lastsend;
 	int elapsed_time;
 	int first_cmd;
+	int point;
 } game_t;
 
 #endif

@@ -844,10 +844,8 @@ void add_cmd(game_t *game)
 		game->elapsed_time = game->elapsed_time + 1;
 }
 
-void disp_cmd(sfRenderWindow *window, game_t *game)
+void disp_cmd(sfRenderWindow *window, game_t *game, int i)
 {
-	int i = 0;
-
 	for (i = 0; game->cmd[i] && i < 10; i = i + 1) {
 		if (game->cmd[i] == 1)
 			disp_str(window, "BURGER", 10, (50 * i) + 120);
@@ -874,15 +872,17 @@ void display_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing, game_t 
 {
 	add_cmd(game);
 	clean_game_bool(ing, bg);
-	if (game->sec == 1)
+	if (game->sec == 1) {
 		ing[36]->o_sprt = ing[36]->o_sprt + 1;
+		game->lastsend = game->lastsend + 1; 
+	}
 	game_event(window, bg, ing);
 	if (ing[23]->o_sprt == 1)
 		bg[0]->o_sprt = 2;
 	game_setsprite(ing);
 	make_comandes(ing);
 	drawer_game(window, bg, ing, game);
-	disp_cmd(window, game);
+	disp_cmd(window, game, 0);
 	sfRenderWindow_display(window);
 }
 
@@ -902,7 +902,9 @@ void fill_game(game_t *game)
 	int j = 0;
 
 	game->sec = 0;
+	game->point = 100;
 	game->lastcmd = 0;
+	game->lastsend = 0;
 	game->elapsed_time = 0;
 	game->cmd = malloc(sizeof(char) * 152);
 	for (j = 0; j < 150; j = j + 1)
