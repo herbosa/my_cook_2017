@@ -147,7 +147,7 @@ void pause_setsprite(sprite_t **brk)
 	sfSprite_setTextureRect(brk[2]->s_sprt, brk[2]->r_sprt);
 }
 
-void touch_pause(sfRenderWindow *window, sprite_t **bg, sprite_t **brk)
+void touch_pause(sfRenderWindow *window, sprite_t **bg)
 {
 	if (sfKeyboard_isKeyPressed(sfKeyEscape))
 		bg[0]->o_sprt = 1;
@@ -201,7 +201,7 @@ void display_pause(sfRenderWindow *window, sprite_t **bg, sprite_t **brk)
 		if (event.type == sfEvtClosed)
 			sfRenderWindow_close(window);
 		if (event.type == sfEvtKeyPressed)
-			touch_pause(window, bg, brk);
+			touch_pause(window, bg);
 		button_pause(brk, event);
 		if (event.type == sfEvtMouseButtonPressed)
 			clicked_pause(window, bg, brk, event);
@@ -694,6 +694,24 @@ void touch_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
 	ing_key_20_29(ing);
 }
 
+void disp_str(sfRenderWindow *window, char *str, int x, int y)
+{
+        sfText *start = sfText_create();
+        sfFont *font = sfFont_createFromFile("./rsrc/font/font.ttf");
+        sfVector2f origin;
+
+	origin.x = x;
+	origin.y = y;
+        sfText_setString(start, str);
+        sfText_setFont(start, font);
+        sfText_setCharacterSize(start, 30);
+	sfText_setColor(start, sfColor_fromRGB(0, 0, 0));
+	sfText_move(start, origin);
+        sfRenderWindow_drawText(window, start, NULL);
+        sfText_destroy(start);
+        sfFont_destroy(font);
+}
+
 void drawer_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
 {
 	int i = 0;
@@ -774,13 +792,10 @@ void clean_game_bool(sprite_t **ing, sprite_t **bg)
 	}
 }
 
-void display_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing, int sec)
+void game_event(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
 {
 	sfEvent event;
 
-	clean_game_bool(ing, bg);
-	if (sec == 1)
-		ing[36]->o_sprt = ing[36]->o_sprt + 1;
 	while (sfRenderWindow_pollEvent(window, &event)) {
 		if (event.type == sfEvtClosed)
 			sfRenderWindow_close(window);
@@ -790,40 +805,110 @@ void display_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing, int sec
 			clicked_game(ing, event);
 		button_game(ing, event);
 	}
+}
+
+void add_cmd(game_t *game)
+{
+	int i = 0;
+
+	if (game->lastcmd == 0 ||
+		(game->elapsed_time - (4 + (rand() % 6)))  >= 0) {
+		for (i = 0; game->cmd[i]; i = i + 1);
+		game->cmd[i] = (rand() % 7) + 1;
+		game->cmd[i + 1] = '\0';
+		game->lastcmd = 1;
+		game->elapsed_time = 0;
+	}
+	if (game->sec == 1)
+		game->elapsed_time = game->elapsed_time + 1;
+}
+
+void disp_cmd(sfRenderWindow *window, game_t *game)
+{
+	int i = 0;
+
+	for (i = 0; game->cmd[i]; i = i + 1) {
+		if (game->cmd[i] == 1)
+			disp_str(window, "BURGER", 10, (50 * i) + 120);
+		if (game->cmd[i] == 2)
+			disp_str(window, "BURGER VEGE", 10, (50 * i) + 120);
+		if (game->cmd[i] == 3)
+			disp_str(window, "DONUT", 10, 50 * i + 120);
+		if (game->cmd[i] == 4)
+			disp_str(window, "SALADE", 10, 50 * i + 120);
+		if (game->cmd[i] == 5)
+			disp_str(window, "PIZZA", 10, 50 * i + 120);
+		if (game->cmd[i] == 6)
+			disp_str(window, "FANTA", 10, 50 * i + 120);
+		if (game->cmd[i] == 7)
+			disp_str(window, "COCA", 10, 50 * i + 120);
+		if (game->cmd[i] == 8)
+			disp_str(window, "BIERRE", 10, 50 * i + 120);
+	}
+}
+
+void display_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing, game_t *game)
+{
+	add_cmd(game);
+	clean_game_bool(ing, bg);
+	if (game->sec == 1)
+		ing[36]->o_sprt = ing[36]->o_sprt + 1;
+	game_event(window, bg, ing);
 	if (ing[23]->o_sprt == 1)
 		bg[0]->o_sprt = 2;
 	game_setsprite(ing);
 	make_comandes(ing);
 	drawer_game(window, bg, ing);
+	disp_cmd(window, game);
 	sfRenderWindow_display(window);
+}
+
+void launch_pause_help_end(sfRenderWindow *window, sprite_t **bg,
+			   sprite_t **brk, int i)
+{
+	if (bg[0]->o_sprt == 2)
+		display_pause(window, bg, brk);
+	if (bg[0]->o_sprt == 3)
+		display_help(window, bg);
+	if (bg[0]->o_sprt == 4)
+		display_end(window, bg, i);
+}
+
+void fill_game(game_t *game)
+{
+	int j = 0;
+
+	game->sec = 0;
+	game->lastcmd = 0;
+	game->elapsed_time = 0;
+	game->cmd = malloc(sizeof(char) * 152);
+	for (j = 0; j < 150; j = j + 1)
+		game->cmd[j] = '\0';
 }
 
 void game_loop(sfRenderWindow *window, sprite_t **bg, sprite_t **brk, sprite_t **ing)
 {
-	sfClock *time = sfClock_create();
+	sfClock *clock = sfClock_create();
+	game_t *game = malloc(sizeof(game_t *) * 1);
 	int j = 0;
-	int i = 0;
 	int time_i = 1000000;
 
+	fill_game(game);
+	srand((long long)&game);
 	while (sfRenderWindow_isOpen(window)) {
-		if (sfTime_asMicroseconds(sfClock_getElapsedTime(time)) > time_i) {
-			i = 1;
-			sfClock_restart(time);
+		if (sfTime_asMicroseconds(sfClock_getElapsedTime(clock)) > time_i) {
+			game->sec = 1;
+			sfClock_restart(clock);
 		} else
-			i = 0;
+			game->sec = 0;
 		if (bg[0]->o_sprt == 0) {
 			for (j = 0; j < 37; j = j + 1)
 				ing[j]->o_sprt = 0;
 			display_home(window, bg);
 		}
 		if (bg[0]->o_sprt == 1)
-			display_game(window, bg, ing, i);
-		if (bg[0]->o_sprt == 2)
-			display_pause(window, bg, brk);
-		if (bg[0]->o_sprt == 3)
-			display_help(window, bg);
-		if (bg[0]->o_sprt == 4)
-			display_end(window, bg, i);
+			display_game(window, bg, ing, game);
+		launch_pause_help_end(window, bg, brk, game->sec);
 	}
 }
 
