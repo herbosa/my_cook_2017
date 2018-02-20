@@ -867,7 +867,7 @@ void disp_cmd(sfRenderWindow *window, game_t *game, int i)
 		if (game->cmd[i] == 7)
 			disp_str(window, "COCA", 10, 50 * i + 120);
 		if (game->cmd[i] == 8)
-			disp_str(window, "BIERRE", 10, 50 * i + 120);
+			disp_str(window, "BIERE", 10, 50 * i + 120);
 		if (game->cmd[i] == 9)
 			disp_str(window, "FRIES", 10, 50 * i + 120);
 	}
