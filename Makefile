@@ -11,9 +11,9 @@ OBJ	=	$(SRC:.c=.o)
 
 NAME	=	my_cook
 
-CFLAGS	=	-W -Wall -Wextra -Iinclude
+CFLAGS	=	-g -W -Wall -Wextra -Iinclude
 
-LDFLAGS	=	-l c_graph_prog -L ./lib/my -l myprintf -L ./lib/graph -lgraph
+LDFLAGS	=	-g -l c_graph_prog -L ./lib/my -l myprintf -L ./lib/graph -lgraph
 
 
 all:	libmake $(NAME)

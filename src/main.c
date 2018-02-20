@@ -24,43 +24,44 @@ sfRenderWindow *renderwindow_create(sfRenderWindow *wd)
 	v_mode.width = 1920;
 	v_mode.height = 1075;
 	v_mode.bitsPerPixel = 32;
-	wd = sfRenderWindow_create(v_mode, "Cook, Serve, Delicious", sfDefaultStyle, NULL);
+	wd = sfRenderWindow_create(v_mode, "Cook, Serve, Delicious",
+				sfDefaultStyle, NULL);
 	return (wd);
 }
 
 void start_disp(sfRenderWindow *window, sfSprite *sprite_start, sprite_t **bg)
 {
-        sfText *start = sfText_create();
-        sfFont *font = sfFont_createFromFile("./rsrc/font/font.ttf");
-        sfVector2f origin = {850, 320};
+	sfText *start = sfText_create();
+	sfFont *font = sfFont_createFromFile("./rsrc/font/font.ttf");
+	sfVector2f origin = {850, 320};
 
-        sfRenderWindow_drawSprite(window, sprite_start, NULL);
+	sfRenderWindow_drawSprite(window, sprite_start, NULL);
 	sfRenderWindow_drawSprite(window, bg[4]->s_sprt, NULL);
-        sfText_setString(start, "Press \nenter or\nclick here\nto start");
-        sfText_setFont(start, font);
-        sfText_setCharacterSize(start, 80);
+	sfText_setString(start, "Press \nenter or\nclick here\nto start");
+	sfText_setFont(start, font);
+	sfText_setCharacterSize(start, 80);
 	sfText_setColor(start, sfColor_fromRGB(0, 0, 0));
 	sfText_move(start, origin);
-        sfRenderWindow_drawText(window, start, NULL);
-        sfText_destroy(start);
-        sfFont_destroy(font);
+	sfRenderWindow_drawText(window, start, NULL);
+	sfText_destroy(start);
+	sfFont_destroy(font);
 }
 
 void help_disp(sfRenderWindow *window, sprite_t **bg)
 {
-        sfText *start = sfText_create();
-        sfFont *font = sfFont_createFromFile("./rsrc/font/font.ttf");
-        sfVector2f origin = {250, 320};
+	sfText *start = sfText_create();
+	sfFont *font = sfFont_createFromFile("./rsrc/font/font.ttf");
+	sfVector2f origin = {250, 320};
 
 	sfRenderWindow_drawSprite(window, bg[5]->s_sprt, NULL);
 	sfText_setString(start, "BLABLABLABLABLABLABLABLABLABLA");
 	sfText_setFont(start, font);
-        sfText_setCharacterSize(start, 50);
+	sfText_setCharacterSize(start, 50);
 	sfText_setColor(start, sfColor_fromRGB(0, 0, 0));
 	sfText_move(start, origin);
-        sfRenderWindow_drawText(window, start, NULL);
-        sfText_destroy(start);
-        sfFont_destroy(font);
+	sfRenderWindow_drawText(window, start, NULL);
+	sfText_destroy(start);
+	sfFont_destroy(font);
 }
 
 
@@ -717,23 +718,24 @@ void touch_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
 
 void disp_str(sfRenderWindow *window, char *str, int x, int y)
 {
-        sfText *start = sfText_create();
-        sfFont *font = sfFont_createFromFile("./rsrc/font/font.ttf");
-        sfVector2f origin;
+	sfText *start = sfText_create();
+	sfFont *font = sfFont_createFromFile("./rsrc/font/font.ttf");
+	sfVector2f origin;
 
 	origin.x = x;
 	origin.y = y;
-        sfText_setString(start, str);
-        sfText_setFont(start, font);
-        sfText_setCharacterSize(start, 30);
+	sfText_setString(start, str);
+	sfText_setFont(start, font);
+	sfText_setCharacterSize(start, 30);
 	sfText_setColor(start, sfColor_fromRGB(0, 0, 0));
 	sfText_move(start, origin);
-        sfRenderWindow_drawText(window, start, NULL);
-        sfText_destroy(start);
-        sfFont_destroy(font);
+	sfRenderWindow_drawText(window, start, NULL);
+	sfText_destroy(start);
+	sfFont_destroy(font);
 }
 
-void drawer_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing, game_t *game)
+void drawer_game(sfRenderWindow *window, sprite_t **bg,
+		sprite_t **ing, game_t *game)
 {
 	int i = 0;
 
@@ -754,10 +756,10 @@ void drawer_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing, game_t *
 }
 
 void game_setsprite(sprite_t **ing)
-{	
+{
 	int i = 0;
 
-	for(i = 0; i < 25; i = i + 1)
+	for (i = 0; i < 25; i = i + 1)
 		sfSprite_setTextureRect(ing[i]->s_sprt, ing[i]->r_sprt);
 }
 
@@ -868,7 +870,8 @@ void disp_cmd(sfRenderWindow *window, game_t *game, int i)
 	}
 }
 
-void display_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing, game_t *game)
+void display_game(sfRenderWindow *window, sprite_t **bg,
+		sprite_t **ing, game_t *game)
 {
 	add_cmd(game);
 	clean_game_bool(ing, bg);
@@ -885,7 +888,7 @@ void display_game(sfRenderWindow *window, sprite_t **bg, sprite_t **ing, game_t 
 }
 
 void launch_pause_help_end(sfRenderWindow *window, sprite_t **bg,
-			   sprite_t **brk, int i)
+			sprite_t **brk, int i)
 {
 	if (bg[0]->o_sprt == 2)
 		display_pause(window, bg, brk);
@@ -907,7 +910,8 @@ void fill_game(game_t *game)
 		game->cmd[j] = '\0';
 }
 
-void game_loop(sfRenderWindow *window, sprite_t **bg, sprite_t **brk, sprite_t **ing)
+void game_loop(sfRenderWindow *window, sprite_t **bg,
+		sprite_t **brk, sprite_t **ing)
 {
 	sfClock *clock = sfClock_create();
 	game_t *game = malloc(sizeof(game_t *) * 10);
@@ -917,7 +921,8 @@ void game_loop(sfRenderWindow *window, sprite_t **bg, sprite_t **brk, sprite_t *
 	fill_game(game);
 	srand((long long)&game);
 	while (sfRenderWindow_isOpen(window)) {
-		if (sfTime_asMicroseconds(sfClock_getElapsedTime(clock)) > time_i) {
+		if (sfTime_asMicroseconds
+			(sfClock_getElapsedTime(clock)) > time_i) {
 			game->sec = 1;
 			sfClock_restart(clock);
 		} else
@@ -1059,7 +1064,7 @@ sprite_t **fill_ing_12_14(sprite_t **ing)
 	ing[14]->v_sprt.x = 1620;
 	ing[14]->v_sprt.y = 400;
 	ing[14]->r_sprt = create_rect_ing(ing[14]->r_sprt);
-	sfSprite_setPosition(ing[14]->s_sprt, ing[14]->v_sprt);	
+	sfSprite_setPosition(ing[14]->s_sprt, ing[14]->v_sprt);
 	return (ing);
 }
 sprite_t **fill_ing_15_17(sprite_t **ing)
@@ -1226,7 +1231,7 @@ sprite_t **fill_ing_33_35(sprite_t **ing)
 }
 
 sprite_t **fill_ing_36_37(sprite_t **ing)
-{	
+{
 	ing[36] = malloc(sizeof(sprite_t) * 1);
 	ing[36] = create_sprite(ing[36], "rsrc/pictures/timer.png");
 	ing[36]->v_sprt.x = 0;
@@ -1296,7 +1301,7 @@ sprite_t **fill_bg(sprite_t **bg)
 	bg[2] = create_sprite(bg[2], "rsrc/pictures/background.png");
 	bg[3] = malloc(sizeof(sprite_t) * 1);
 	bg[3] = create_sprite(bg[3], "rsrc/pictures/contoire.png");
-	bg[4] = malloc(sizeof(sprite_t) * 1);	
+	bg[4] = malloc(sizeof(sprite_t) * 1);
 	bg[4] = create_sprite(bg[4], "rsrc/pictures/quit_bg.png");
 	bg[4]->r_sprt = create_rect_ing(bg[4]->r_sprt);
 	sfSprite_setTextureRect(bg[4]->s_sprt, bg[4]->r_sprt);
