@@ -16,9 +16,14 @@
 #include "my_printf.h"
 #include "graph.h"
 
+typedef struct command {
+	char *cmd;
+	unsigned long int time;
+} cmd_t;
+
 typedef struct game {
 	int sec;
-	char *cmd;
+	cmd_t *command;
 	int lastcmd;
 	int lastsend;
 	int elapsed_time;

@@ -292,9 +292,9 @@ void rm_from_cmd(game_t *game, int nb_cmd)
 {
 	int  i = 0;
 
-	while (game->cmd[i]) {
-		if (game->cmd[i] == nb_cmd)
-			game->cmd = remove_str_elem(game->cmd, i);
+	while ((game->command)->cmd[i]) {
+		if ((game->command)->cmd[i] == nb_cmd)
+			(game->command)->cmd = remove_str_elem((game->command)->cmd, i);
 		i = i + 1;
 	}
 }
@@ -839,9 +839,9 @@ void add_cmd(game_t *game)
 
 	if (game->lastcmd == 0 ||
 		(game->elapsed_time - (4 + (rand() % 6)))  >= 0) {
-		for (i = 0; game->cmd[i]; i = i + 1);
-		game->cmd[i] = (rand() % 9) + 1;
-		game->cmd[i + 1] = '\0';
+		for (i = 0; (game->command)->cmd[i]; i = i + 1);
+		(game->command)->cmd[i] = (rand() % 9) + 1;
+		(game->command)->cmd[i + 1] = '\0';
 		game->lastcmd = 1;
 		game->elapsed_time = 0;
 	}
@@ -851,24 +851,24 @@ void add_cmd(game_t *game)
 
 void disp_cmd(sfRenderWindow *window, game_t *game, int i)
 {
-	for (i = 0; game->cmd[i] && i < 10; i = i + 1) {
-		if (game->cmd[i] == 1)
+	for (i = 0; (game->command)->cmd[i] && i < 10; i = i + 1) {
+		if ((game->command)->cmd[i] == 1)
 			disp_str(window, "BURGER", 10, (50 * i) + 120);
-		if (game->cmd[i] == 2)
+		if ((game->command)->cmd[i] == 2)
 			disp_str(window, "BURGER VEGE", 10, (50 * i) + 120);
-		if (game->cmd[i] == 3)
+		if ((game->command)->cmd[i] == 3)
 			disp_str(window, "DONUT", 10, 50 * i + 120);
-		if (game->cmd[i] == 4)
+		if ((game->command)->cmd[i] == 4)
 			disp_str(window, "SALADE", 10, 50 * i + 120);
-		if (game->cmd[i] == 5)
+		if ((game->command)->cmd[i] == 5)
 			disp_str(window, "PIZZA", 10, 50 * i + 120);
-		if (game->cmd[i] == 6)
+		if ((game->command)->cmd[i] == 6)
 			disp_str(window, "FANTA", 10, 50 * i + 120);
-		if (game->cmd[i] == 7)
+		if ((game->command)->cmd[i] == 7)
 			disp_str(window, "COCA", 10, 50 * i + 120);
-		if (game->cmd[i] == 8)
+		if ((game->command)->cmd[i] == 8)
 			disp_str(window, "BIERE", 10, 50 * i + 120);
-		if (game->cmd[i] == 9)
+		if ((game->command)->cmd[i] == 9)
 			disp_str(window, "FRIES", 10, 50 * i + 120);
 	}
 }
@@ -905,12 +905,13 @@ void fill_game(game_t *game)
 {
 	int j = 0;
 
+	game->command = malloc(sizeof(cmd_t));
 	game->sec = 0;
 	game->lastcmd = 0;
 	game->elapsed_time = 0;
-	game->cmd = malloc(sizeof(char) * 152);
+	(game->command)->cmd = malloc(sizeof(char) * 152);
 	for (j = 0; j < 150; j = j + 1)
-		game->cmd[j] = '\0';
+		(game->command)->cmd[j] = '\0';
 }
 
 void game_loop(sfRenderWindow *window, sprite_t **bg,
