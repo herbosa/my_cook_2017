@@ -230,7 +230,7 @@ void show_menu(sprite_t **ing)
 	int i = 0;
 
 	for (i = 0; i < 25; i = i + 1) {
-		ing[i]->v_sprt.x = ing[i]->v_sprt.x - 300;
+		ing[i]->v_sprt.x = ing[i]->v_sprt.x + 300;
 		sfSprite_setPosition(ing[i]->s_sprt, ing[i]->v_sprt);
 	}
 	ing[24]->o_sprt = 1;
@@ -241,7 +241,7 @@ void hide_menu(sprite_t **ing)
 	int i = 0;
 
 	for (i = 0; i < 25; i = i + 1) {
-		ing[i]->v_sprt.x = ing[i]->v_sprt.x + 300;
+		ing[i]->v_sprt.x = ing[i]->v_sprt.x - 300;
 		sfSprite_setPosition(ing[i]->s_sprt, ing[i]->v_sprt);
 	}
 	ing[24]->o_sprt = 0;
@@ -616,10 +616,13 @@ void clicked_game(sprite_t **ing, sfEvent event)
 		event.mouseButton.x < ing[24]->v_sprt.x + 100 &&
 		event.mouseButton.y > ing[24]->v_sprt.y &&
 		event.mouseButton.y < ing[24]->v_sprt.y + 100) {
-		if (ing[24]->o_sprt == 0)
+		if (ing[24]->o_sprt == 0) {
 			show_menu(ing);
-		else if (ing[24]->o_sprt == 1)
+			ing[24]->o_sprt = 1;
+		} else if (ing[24]->o_sprt == 1) {
 			hide_menu(ing);
+			ing[24]->o_sprt = 0;
+		}
 	}
 }
 
