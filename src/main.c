@@ -92,9 +92,11 @@ void touch_home(sfRenderWindow *window, sprite_t **bg)
 
 void clicked_help(sfEvent event, sprite_t **bg)
 {
-	if (event.mouseButton.x > 200 && event.mouseButton.x < 440 &&
-		event.mouseButton.y > 700 && event.mouseButton.y < 1000)
-		bg[0]->o_sprt = 0;
+	if (event.type == sfEvtMouseButtonPressed) {
+		if (event.mouseButton.x > 100 && event.mouseButton.x < 340 &&
+			event.mouseButton.y > 700 && event.mouseButton.y < 1000)
+			bg[0]->o_sprt = 0;
+	}
 }
 
 void touch_help(sfRenderWindow *window, sprite_t **bg)
@@ -108,25 +110,27 @@ void touch_help(sfRenderWindow *window, sprite_t **bg)
 
 void clicked_home(sfEvent event, sprite_t **bg, sfRenderWindow *window)
 {
-	if (event.mouseButton.x  > bg[4]->v_sprt.x &&
-		event.mouseButton.x < bg[4]->v_sprt.x + 100 &&
-		event.mouseButton.y > bg[4]->v_sprt.y &&
-		event.mouseButton.y < bg[4]->v_sprt.y + 100)
-		sfRenderWindow_close(window);
-	if (event.mouseMove.x  > bg[4]->v_sprt.x &&
-		event.mouseMove.x < bg[4]->v_sprt.x + 100 &&
-		event.mouseMove.y > bg[4]->v_sprt.y &&
-		event.mouseMove.y < bg[4]->v_sprt.y + 100)
-		bg[4]->r_sprt.top = 100;
-	else
-		bg[4]->r_sprt.top = 0;
-	if (event.mouseButton.x > 824 && event.mouseButton.x < 824 + 520 &&
-		event.mouseButton.y > 303 && event.mouseButton.y < 303 + 390)
-		bg[0]->o_sprt = 1;
-	else if (event.mouseButton.x > 30 && event.mouseButton.x < 270 &&
-		event.mouseButton.y > 550 && event.mouseButton.y < 800)
-		bg[0]->o_sprt = 3;
-	 sfSprite_setTextureRect(bg[4]->s_sprt, bg[4]->r_sprt);
+	if (event.type == sfEvtMouseButtonPressed) {
+		if (event.mouseButton.x  > bg[4]->v_sprt.x &&
+			event.mouseButton.x < bg[4]->v_sprt.x + 100 &&
+			event.mouseButton.y > bg[4]->v_sprt.y &&
+			event.mouseButton.y < bg[4]->v_sprt.y + 100)
+			sfRenderWindow_close(window);
+		if (event.mouseMove.x  > bg[4]->v_sprt.x &&
+			event.mouseMove.x < bg[4]->v_sprt.x + 100 &&
+			event.mouseMove.y > bg[4]->v_sprt.y &&
+			event.mouseMove.y < bg[4]->v_sprt.y + 100)
+			bg[4]->r_sprt.top = 100;
+		else
+			bg[4]->r_sprt.top = 0;
+		if (event.mouseButton.x > 824 && event.mouseButton.x < 824 + 520 &&
+			event.mouseButton.y > 303 && event.mouseButton.y < 303 + 390)
+			bg[0]->o_sprt = 1;
+		else if (event.mouseButton.x > 30 && event.mouseButton.x < 270 &&
+			event.mouseButton.y > 550 && event.mouseButton.y < 800)
+			bg[0]->o_sprt = 3;
+	}
+	sfSprite_setTextureRect(bg[4]->s_sprt, bg[4]->r_sprt);
 }
 
 void display_home(sfRenderWindow *window, sprite_t **bg)
