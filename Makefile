@@ -5,7 +5,25 @@
 ##
 ##
 
-SRC	=	./src/main.c
+SRC	=	src/main.c			\
+		src/home_help.c			\
+		src/display.c			\
+		src/pause.c			\
+		src/make_eat.c			\
+		src/make_drinks.c		\
+		src/fill_ing_drinks_sauces.c	\
+		src/fill_ing_meats.c		\
+		src/fill_ing_salad.c		\
+		src/fill_tabs.c			\
+		src/gameloop_rects.c		\
+		src/fill_ing_key.c		\
+		src/game_bind.c			\
+		src/disp_orders_drinks_salad.c	\
+		src/disp_orders.c		\
+		src/menu.c			\
+		src/cmd.c			\
+		src/game.c			\
+		src/sprt_str.c
 
 OBJ	=	$(SRC:.c=.o)
 
