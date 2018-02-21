@@ -51,10 +51,10 @@ void help_disp(sfRenderWindow *window, sprite_t **bg)
 {
 	sfText *start = sfText_create();
 	sfFont *font = sfFont_createFromFile("./rsrc/font/font.ttf");
-	sfVector2f origin = {250, 320};
+	sfVector2f origin = {120, 290};
 
 	sfRenderWindow_drawSprite(window, bg[5]->s_sprt, NULL);
-	sfText_setString(start, "BLABLABLABLABLABLABLABLABLABLA");
+	sfText_setString(start, "WELCOME TO COOK, SERVE, DELICIOUS!\nYOU JUST OPENED YOUR NEW RESTAURANT, CONGRATULATIONS!\nYOU HAVE TO COMPLETE THE MAXIMUM AMOUNT OF ORDERS\nUNTIL THE END OF THE DAY.\nBUT BEWARE: WRONG ORDERS WILL MAKE YOU LOSE MONEY!\nGOOD LUCK, YOUNG COOKER!");
 	sfText_setFont(start, font);
 	sfText_setCharacterSize(start, 50);
 	sfText_setColor(start, sfColor_fromRGB(0, 0, 0));
