@@ -29,19 +29,34 @@ sfRenderWindow *renderwindow_create(sfRenderWindow *wd)
 	return (wd);
 }
 
+void helper_text(sfText *start_h, sfFont *font, sfRenderWindow *window)
+{
+	sfVector2f h_origin = {90, 850};
+
+	sfText_setString(start_h, "Press 'H' or\nClick Beer\nfor Help");
+	sfText_setFont(start_h, font);
+	sfText_setCharacterSize(start_h, 40);
+	sfText_setColor(start_h, sfColor_fromRGB(0 , 0, 0));
+	sfText_move(start_h, h_origin);
+	sfRenderWindow_drawText(window, start_h, NULL);
+	sfText_destroy(start_h);
+}
+
 void start_disp(sfRenderWindow *window, sfSprite *sprite_start, sprite_t **bg)
 {
 	sfText *start = sfText_create();
+	sfText *start_h = sfText_create();
 	sfFont *font = sfFont_createFromFile("./rsrc/font/font.ttf");
 	sfVector2f origin = {850, 320};
 
 	sfRenderWindow_drawSprite(window, sprite_start, NULL);
 	sfRenderWindow_drawSprite(window, bg[4]->s_sprt, NULL);
-	sfText_setString(start, "Press \nenter or\nclick here\nto start");
+	sfText_setString(start, "Press \n'ENTER' or\nclick here\nto start");
 	sfText_setFont(start, font);
 	sfText_setCharacterSize(start, 80);
 	sfText_setColor(start, sfColor_fromRGB(0, 0, 0));
 	sfText_move(start, origin);
+	helper_text(start_h, font, window);
 	sfRenderWindow_drawText(window, start, NULL);
 	sfText_destroy(start);
 	sfFont_destroy(font);
@@ -75,6 +90,13 @@ void touch_home(sfRenderWindow *window, sprite_t **bg)
 		bg[0]->o_sprt = 3;
 }
 
+void clicked_help(sfEvent event, sprite_t **bg)
+{
+	if (event.mouseButton.x > 200 && event.mouseButton.x < 440 &&
+		event.mouseButton.y > 700 && event.mouseButton.y < 1000)
+		bg[0]->o_sprt = 0;
+}
+
 void touch_help(sfRenderWindow *window, sprite_t **bg)
 {
 	if (sfKeyboard_isKeyPressed(sfKeyQ))
@@ -98,11 +120,12 @@ void clicked_home(sfEvent event, sprite_t **bg, sfRenderWindow *window)
 		bg[4]->r_sprt.top = 100;
 	else
 		bg[4]->r_sprt.top = 0;
-	if (event.mouseButton.x > 824 &&
-		event.mouseButton.x < 824 + 520 &&
-		event.mouseButton.y > 303 &&
-		event.mouseButton.y < 303 + 390)
+	if (event.mouseButton.x > 824 && event.mouseButton.x < 824 + 520 &&
+		event.mouseButton.y > 303 && event.mouseButton.y < 303 + 390)
 		bg[0]->o_sprt = 1;
+	else if (event.mouseButton.x > 30 && event.mouseButton.x < 270 &&
+		event.mouseButton.y > 550 && event.mouseButton.y < 800)
+		bg[0]->o_sprt = 3;
 	 sfSprite_setTextureRect(bg[4]->s_sprt, bg[4]->r_sprt);
 }
 
@@ -131,6 +154,7 @@ void display_help(sfRenderWindow *window, sprite_t **bg)
 			sfRenderWindow_close(window);
 		if (event.type == sfEvtKeyPressed)
 			touch_help(window, bg);
+		clicked_help(event, bg);
 	}
 	sfRenderWindow_display(window);
 }
