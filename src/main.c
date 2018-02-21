@@ -543,6 +543,8 @@ void disp_pizza(sfRenderWindow *window, sprite_t **ing, game_t *game)
 	if (ing[28]->o_sprt == 10) {
 		rm_from_cmd(game, 5);
 		ing[28]->o_sprt = 0;
+		ing[28]->v_sprt.x = 750;
+		sfSprite_setPosition(ing[28]->s_sprt, ing[28]->v_sprt);
 		return;
 	}
 	ing[28]->r_sprt.top = (ing[28]->o_sprt - 1) * 200;
@@ -571,7 +573,7 @@ void make_vege_burger(sprite_t **ing)
 		ing[27]->o_sprt = 7;
 }
 
-void make_salade(sprite_t **ing)
+void make_salad(sprite_t **ing)
 {
 	if (ing[20]->o_sprt == 1 && ing[30]->o_sprt == 0 &&
 		ing[25]->o_sprt <= 1 && ing[26]->o_sprt <= 1)
@@ -828,7 +830,7 @@ void make_comandes(sprite_t **ing)
 	if (ing[31]->o_sprt == 0 && ing[28]->o_sprt == 0 &&
 		ing[25]->o_sprt == 0 && ing[27]->o_sprt == 0
 		&& ing[35]->o_sprt == 0)
-		make_salade(ing);
+		make_salad(ing);
 	if (ing[30]->o_sprt == 0 && ing[28]->o_sprt == 0 &&
 		ing[25]->o_sprt == 0 && ing[27]->o_sprt == 0
 		&& ing[35]->o_sprt == 0)
