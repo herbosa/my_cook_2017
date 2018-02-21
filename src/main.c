@@ -325,8 +325,10 @@ void rm_from_cmd(game_t *game, int nb_cmd)
 	int  i = 0;
 
 	while ((game->command)->cmd[i]) {
-		if ((game->command)->cmd[i] == nb_cmd)
+		if ((game->command)->cmd[i] == nb_cmd) {
 			(game->command)->cmd = remove_str_elem((game->command)->cmd, i);
+			return;
+		}
 		i = i + 1;
 	}
 }
@@ -887,11 +889,11 @@ void disp_cmd(sfRenderWindow *window, game_t *game, int i)
 		if ((game->command)->cmd[i] == 1)
 			disp_str(window, "BURGER", 10, (50 * i) + 120);
 		if ((game->command)->cmd[i] == 2)
-			disp_str(window, "BURGER VEGE", 10, (50 * i) + 120);
+			disp_str(window, "VEGAN BURGER", 10, (50 * i) + 120);
 		if ((game->command)->cmd[i] == 3)
 			disp_str(window, "DONUT", 10, 50 * i + 120);
 		if ((game->command)->cmd[i] == 4)
-			disp_str(window, "SALADE", 10, 50 * i + 120);
+			disp_str(window, "SALAD", 10, 50 * i + 120);
 		if ((game->command)->cmd[i] == 5)
 			disp_str(window, "PIZZA", 10, 50 * i + 120);
 		if ((game->command)->cmd[i] == 6)
@@ -899,7 +901,7 @@ void disp_cmd(sfRenderWindow *window, game_t *game, int i)
 		if ((game->command)->cmd[i] == 7)
 			disp_str(window, "COCA", 10, 50 * i + 120);
 		if ((game->command)->cmd[i] == 8)
-			disp_str(window, "BIERE", 10, 50 * i + 120);
+			disp_str(window, "BEER", 10, 50 * i + 120);
 		if ((game->command)->cmd[i] == 9)
 			disp_str(window, "FRIES", 10, 50 * i + 120);
 	}
