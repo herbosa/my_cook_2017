@@ -78,9 +78,10 @@ void display_end(sfRenderWindow *window, sprite_t **bg, int time)
 {
 	sfEvent event;
 
-	if (time == 1)
+	if (time == 1) {
 		bg[6]->o_sprt = bg[6]->o_sprt + 1;
-	if (bg[6]->o_sprt == 5)
+	}
+	if (bg[6]->o_sprt >= 5)
 		bg[0]->o_sprt = 0;
 	sfRenderWindow_drawSprite(window, bg[6]->s_sprt, NULL);
 	while (sfRenderWindow_pollEvent(window, &event)) {

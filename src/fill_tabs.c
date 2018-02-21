@@ -74,6 +74,7 @@ sprite_t **fill_bg(sprite_t **bg)
 	bg[5] = create_sprite(bg[5], "rsrc/pictures/help.png");
 	bg[6] = malloc(sizeof(sprite_t) * 1);
 	bg[6] = create_sprite(bg[6], "rsrc/pictures/end.png");
+	bg[6]->o_sprt = 0;
 	bg[7] = 0;
 	return (bg);
 }
