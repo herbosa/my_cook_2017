@@ -86,6 +86,7 @@ sfRenderWindow *renderwindow_create(sfRenderWindow *wd);
 void disp_time(sfRenderWindow *window, sprite_t **ing);
 void disp_str(sfRenderWindow *window, char *str, int x, int y);
 void disp_str_red(sfRenderWindow *window, char *str, int x, int y);
+void end_point_disp(sfRenderWindow *window, int pointnb);
 void rm_from_cmd(game_t *game, int nb_cmd);
 void make_burgers_drink(sprite_t **ing);
 void make_comandes(sprite_t **ing);
