@@ -73,27 +73,57 @@ void add_cmd(game_t *game)
 		game->elapsed_time = game->elapsed_time + 1;
 }
 
+void black_disp_cmd(sfRenderWindow *window, game_t *game, int i)
+{
+	if ((game->command)->cmd[i] == 1)
+		disp_str(window, "BURGER", 10, (50 * i) + 120);
+	if ((game->command)->cmd[i] == 2)
+		disp_str(window, "VEGAN BURGER", 10, (50 * i) + 120);
+	if ((game->command)->cmd[i] == 3)
+		disp_str(window, "DONUT", 10, 50 * i + 120);
+	if ((game->command)->cmd[i] == 4)
+		disp_str(window, "SALAD", 10, 50 * i + 120);
+	if ((game->command)->cmd[i] == 5)
+		disp_str(window, "PIZZA", 10, 50 * i + 120);
+	if ((game->command)->cmd[i] == 6)
+		disp_str(window, "FANTA", 10, 50 * i + 120);
+	if ((game->command)->cmd[i] == 7)
+		disp_str(window, "COKE", 10, 50 * i + 120);
+	if ((game->command)->cmd[i] == 8)
+		disp_str(window, "BEER", 10, 50 * i + 120);
+	if ((game->command)->cmd[i] == 9)
+		disp_str(window, "FRIES", 10, 50 * i + 120);
+}
+
+void red_disp_cmd(sfRenderWindow *window, game_t *game, int i)
+{
+	if ((game->command)->cmd[i] == 1)
+		disp_str_red(window, "BURGER", 10, (50 * i) + 120);
+	if ((game->command)->cmd[i] == 2)
+		disp_str_red(window, "VEGAN BURGER", 10, (50 * i) + 120);
+	if ((game->command)->cmd[i] == 3)
+		disp_str_red(window, "DONUT", 10, 50 * i + 120);
+	if ((game->command)->cmd[i] == 4)
+		disp_str_red(window, "SALAD", 10, 50 * i + 120);
+	if ((game->command)->cmd[i] == 5)
+		disp_str_red(window, "PIZZA", 10, 50 * i + 120);
+	if ((game->command)->cmd[i] == 6)
+		disp_str_red(window, "FANTA", 10, 50 * i + 120);
+	if ((game->command)->cmd[i] == 7)
+		disp_str_red(window, "COKE", 10, 50 * i + 120);
+	if ((game->command)->cmd[i] == 8)
+		disp_str_red(window, "BEER", 10, 50 * i + 120);
+	if ((game->command)->cmd[i] == 9)
+		disp_str_red(window, "FRIES", 10, 50 * i + 120);
+}
+
 void disp_cmd(sfRenderWindow *window, game_t *game, int i)
 {
 	for (i = 0; (game->command)->cmd[i] && i < 10; i = i + 1) {
-		if ((game->command)->cmd[i] == 1)
-			disp_str(window, "BURGER", 10, (50 * i) + 120);
-		if ((game->command)->cmd[i] == 2)
-			disp_str(window, "VEGAN BURGER", 10, (50 * i) + 120);
-		if ((game->command)->cmd[i] == 3)
-			disp_str(window, "DONUT", 10, 50 * i + 120);
-		if ((game->command)->cmd[i] == 4)
-			disp_str(window, "SALAD", 10, 50 * i + 120);
-		if ((game->command)->cmd[i] == 5)
-			disp_str(window, "PIZZA", 10, 50 * i + 120);
-		if ((game->command)->cmd[i] == 6)
-			disp_str(window, "FANTA", 10, 50 * i + 120);
-		if ((game->command)->cmd[i] == 7)
-			disp_str(window, "COKE", 10, 50 * i + 120);
-		if ((game->command)->cmd[i] == 8)
-			disp_str(window, "BEER", 10, 50 * i + 120);
-		if ((game->command)->cmd[i] == 9)
-			disp_str(window, "FRIES", 10, 50 * i + 120);
+		if ((game->command)->time[i] >= 6)
+			black_disp_cmd(window, game, i);
+		if ((game->command)->time[i] < 6)
+			red_disp_cmd(window, game, i);
 		if ((game->command)->time[i] <= 0)
 			rm_from_cmd(game, i);
 		if (game->sec == 1)
