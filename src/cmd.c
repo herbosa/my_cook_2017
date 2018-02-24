@@ -11,6 +11,8 @@ void rm_point(game_t *game)
 {
 	if (game->point >= 5)
 		game->point = game->point - 5;
+	else
+		game->point = 0;
 }
 
 void rm_from_cmd(game_t *game, int nb_cmd)
