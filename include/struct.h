@@ -10,7 +10,7 @@
 
 typedef struct command {
 	char *cmd;
-	unsigned long int time;
+	int *time;
 } cmd_t;
 
 typedef struct game {

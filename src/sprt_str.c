@@ -17,6 +17,16 @@ char *remove_str_elem(char *str, int i)
 	return (str);
 }
 
+int *remove_intab_elem(int *str, int i)
+{
+	while (str[i + 1]) {
+		str[i] = str[i + 1];
+		i = i + 1;
+	}
+	str[i] = 13;
+	return (str);
+}
+
 void change_sprt(sfEvent event, sprite_t **bg, sfRenderWindow *window)
 {
 	if (event.mouseButton.x  > bg[4]->v_sprt.x &&

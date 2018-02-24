@@ -14,6 +14,7 @@ void rm_from_cmd(game_t *game, int nb_cmd)
 	while ((game->command)->cmd[i]) {
 		if ((game->command)->cmd[i] == nb_cmd) {
 			(game->command)->cmd = remove_str_elem((game->command)->cmd, i);
+			(game->command)->time = remove_intab_elem((game->command)->time, i);
 			return;
 		}
 		i = i + 1;
@@ -88,10 +89,16 @@ void disp_cmd(sfRenderWindow *window, game_t *game, int i)
 		if ((game->command)->cmd[i] == 6)
 			disp_str(window, "FANTA", 10, 50 * i + 120);
 		if ((game->command)->cmd[i] == 7)
-			disp_str(window, "COCA", 10, 50 * i + 120);
+			disp_str(window, "COKE", 10, 50 * i + 120);
 		if ((game->command)->cmd[i] == 8)
 			disp_str(window, "BEER", 10, 50 * i + 120);
 		if ((game->command)->cmd[i] == 9)
 			disp_str(window, "FRIES", 10, 50 * i + 120);
+		if ((game->command)->time[i] <= 0)
+			rm_from_cmd(game, i);
+		if (game->sec == 1) {
+			(game->command)->time[i] = (game->command)->time[i] - 1;
+			my_printf("time %d of command nb %d\n", (game->command)->time[i], i);
+		}
 	}
 }

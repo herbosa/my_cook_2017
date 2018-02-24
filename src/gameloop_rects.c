@@ -12,6 +12,7 @@ void game_loop(sfRenderWindow *window, sprite_t **bg,
 {
 	sfClock *clock = sfClock_create();
 	game_t *game = malloc(sizeof(game_t *) * 10);
+	//sprite_t **pers = malloc(sizeof(sprite_t *) * 3);
 	int j = 0;
 	int time_i = 1000000;
 
