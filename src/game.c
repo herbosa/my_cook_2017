@@ -39,7 +39,7 @@ void game_event(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
 }
 
 void display_game(sfRenderWindow *window, sprite_t **bg,
-		sprite_t **ing, game_t *game)
+		  sprite_t **ing, game_t *game)
 {
 	add_cmd(game);
 	clean_game_bool(ing, bg);
@@ -52,6 +52,7 @@ void display_game(sfRenderWindow *window, sprite_t **bg,
 	make_comandes(ing);
 	drawer_game(window, bg, ing, game);
 	disp_cmd(window, game, 0);
+	end_point_disp(window, game->point);
 	sfRenderWindow_display(window);
 }
 
