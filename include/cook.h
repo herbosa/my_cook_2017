@@ -98,6 +98,7 @@ void launch_pause_help_end(sfRenderWindow *window, sprite_t **bg,
 			sprite_t **brk, int i);
 void fill_game(game_t *game);
 char *remove_str_elem(char *str, int i);
+int *remove_intab_elem(int *str, int i);
 void change_sprt(sfEvent event, sprite_t **bg, sfRenderWindow *window);
 
 #endif
