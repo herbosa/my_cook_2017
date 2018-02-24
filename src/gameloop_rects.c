@@ -32,6 +32,7 @@ void game_loop(sfRenderWindow *window, sprite_t **bg,
 		if (bg[0]->o_sprt == 1)
 			display_game(window, bg, ing, game);
 		launch_pause_help_end(window, bg, brk, game->sec);
+		my_printf("point-> %d\n", game->point);
 	}
 }
 

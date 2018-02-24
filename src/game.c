@@ -72,6 +72,7 @@ void fill_game(game_t *game)
 
 	game->command = malloc(sizeof(cmd_t));
 	game->sec = 0;
+	game->point = 0;
 	game->lastcmd = 0;
 	game->elapsed_time = 0;
 	(game->command)->cmd = malloc(sizeof(char) * 152);

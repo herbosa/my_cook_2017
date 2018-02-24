@@ -7,13 +7,26 @@
 
 #include "cook.h"
 
+void rm_point(game_t *game)
+{
+	if (game->point >= 5)
+		game->point = game->point - 5;
+}
+
 void rm_from_cmd(game_t *game, int nb_cmd)
 {
 	int  i = 0;
 
 	while ((game->command)->cmd[i]) {
-		if ((game->command)->cmd[i] == nb_cmd || (game->command)->time[i] < 0) {
+		if ((game->command)->time[i] < 0) {
 			(game->command)->cmd = remove_str_elem((game->command)->cmd, i);
+			(game->command)->time = remove_intab_elem((game->command)->time, i);
+			rm_point(game);
+			return;
+		}
+		if ((game->command)->cmd[i] == nb_cmd) {
+			(game->command)->cmd = remove_str_elem((game->command)->cmd, i);
+			game->point = game->point + ((game->command)->time[i]);
 			(game->command)->time = remove_intab_elem((game->command)->time, i);
 			return;
 		}
