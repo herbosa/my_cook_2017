@@ -39,7 +39,7 @@ void game_event(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
 }
 
 void display_game(sfRenderWindow *window, sprite_t **bg,
-		  sprite_t **ing, game_t *game)
+		sprite_t **ing, game_t *game)
 {
 	add_cmd(game);
 	clean_game_bool(ing, bg);
@@ -57,14 +57,14 @@ void display_game(sfRenderWindow *window, sprite_t **bg,
 }
 
 void launch_pause_help_end(sfRenderWindow *window, sprite_t **bg,
-			sprite_t **brk, int i)
+			sprite_t **brk, game_t *game)
 {
 	if (bg[0]->o_sprt == 2)
 		display_pause(window, bg, brk);
 	if (bg[0]->o_sprt == 3)
 		display_help(window, bg);
 	if (bg[0]->o_sprt == 4)
-		display_end(window, bg, i);
+		display_end(window, bg, game);
 }
 
 void fill_game(game_t *game)

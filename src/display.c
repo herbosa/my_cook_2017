@@ -27,6 +27,17 @@ void start_disp(sfRenderWindow *window, sfSprite *sprite_start, sprite_t **bg)
 	sfFont_destroy(font);
 }
 
+char *set_string(void)
+{
+	char *a = "WELCOME TO COOK, SERVE, DELICIOUS!\nYOU JUST OPENED YOUR";
+	char *b = " NEW RESTAURANT, CONGRATULATIONS!\nYOU HAVE TO COMPLETE";
+	char *c = " THE MAXIMUM AMOUNT OF ORDERS\nUNTIL THE END OF THE DAY";
+	char *d = ".\nBUT BEWARE: WRONG ORDERS WILL MAKE YOU LOSE MONEY";
+	char *e = "!\nGOOD LUCK, YOUNG COOKER!";
+
+	return (my_strcat(a, 5, b, c, d, e));
+}
+
 void help_disp(sfRenderWindow *window, sprite_t **bg)
 {
 	sfText *start = sfText_create();
@@ -34,7 +45,7 @@ void help_disp(sfRenderWindow *window, sprite_t **bg)
 	sfVector2f origin = {120, 290};
 
 	sfRenderWindow_drawSprite(window, bg[5]->s_sprt, NULL);
-	sfText_setString(start, "WELCOME TO COOK, SERVE, DELICIOUS!\nYOU JUST OPENED YOUR NEW RESTAURANT, CONGRATULATIONS!\nYOU HAVE TO COMPLETE THE MAXIMUM AMOUNT OF ORDERS\nUNTIL THE END OF THE DAY.\nBUT BEWARE: WRONG ORDERS WILL MAKE YOU LOSE MONEY!\nGOOD LUCK, YOUNG COOKER!");
+	sfText_setString(start, set_string());
 	sfText_setFont(start, font);
 	sfText_setCharacterSize(start, 50);
 	sfText_setColor(start, sfColor_fromRGB(0, 0, 0));
@@ -44,11 +55,12 @@ void help_disp(sfRenderWindow *window, sprite_t **bg)
 	sfFont_destroy(font);
 }
 
-void display_home(sfRenderWindow *window, sprite_t **bg)
+void display_home(sfRenderWindow *window, sprite_t **bg, game_t *game)
 {
 	sfEvent event;
 
 	start_disp(window, bg[0]->s_sprt, bg);
+	reinit_val(bg, game);
 	while (sfRenderWindow_pollEvent(window, &event)) {
 		if (event.type == sfEvtClosed)
 			sfRenderWindow_close(window);
@@ -74,16 +86,32 @@ void display_help(sfRenderWindow *window, sprite_t **bg)
 	sfRenderWindow_display(window);
 }
 
-void display_end(sfRenderWindow *window, sprite_t **bg, int time)
+void end_point(sfRenderWindow *window, int pointnb)
+{
+	sfText *score = sfText_create();
+	sfFont *font = sfFont_createFromFile("./rsrc/font/font.ttf");
+	sfVector2f origin = {1180, 480};
+
+	sfText_setString(score, my_strcat("score :\n\n", 2,
+					get_score(pointnb)));
+	sfText_setFont(score, font);
+	sfText_setCharacterSize(score, 50);
+	sfText_move(score, origin);
+	sfRenderWindow_drawText(window, score, NULL);
+	sfText_destroy(score);
+	sfFont_destroy(font);
+}
+
+void display_end(sfRenderWindow *window, sprite_t **bg, game_t *game)
 {
 	sfEvent event;
 
-	if (time == 1) {
+	if (game->sec == 1)
 		bg[6]->o_sprt = bg[6]->o_sprt + 1;
-	}
 	if (bg[6]->o_sprt >= 5)
-		bg[0]->o_sprt = 0;
+		reinit_val(bg, game);
 	sfRenderWindow_drawSprite(window, bg[6]->s_sprt, NULL);
+	end_point(window, game->point);
 	while (sfRenderWindow_pollEvent(window, &event)) {
 		if (event.type == sfEvtClosed)
 			sfRenderWindow_close(window);

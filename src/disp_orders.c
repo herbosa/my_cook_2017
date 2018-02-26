@@ -7,6 +7,12 @@
 
 #include "cook.h"
 
+void print_donut(sfRenderWindow *window, sprite_t **ing)
+{
+	sfSprite_setTextureRect(ing[31]->s_sprt, ing[31]->r_sprt);
+	sfRenderWindow_drawSprite(window, ing[31]->s_sprt, NULL);
+}
+
 void disp_donut(sfRenderWindow *window, sprite_t **ing, game_t *game)
 {
 	if (ing[31]->o_sprt == 0)
@@ -28,8 +34,7 @@ void disp_donut(sfRenderWindow *window, sprite_t **ing, game_t *game)
 		ing[31]->r_sprt.top = (ing[31]->o_sprt - 1) * 200;
 	else
 		ing[31]->r_sprt.top = (ing[31]->o_sprt - 2) * 200;
-	sfSprite_setTextureRect(ing[31]->s_sprt, ing[31]->r_sprt);
-	sfRenderWindow_drawSprite(window, ing[31]->s_sprt, NULL);
+	print_donut(window, ing);
 }
 
 void disp_fries(sfRenderWindow *window, sprite_t **ing, game_t *game)

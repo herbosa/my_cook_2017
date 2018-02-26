@@ -17,15 +17,17 @@
 #include "my_printf.h"
 #include "graph.h"
 
+char *get_score(int nb);
+void reinit_val();
 void touch_home(sfRenderWindow *window, sprite_t **bg);
 void clicked_help(sfEvent event, sprite_t **bg);
 void touch_help(sfRenderWindow *window, sprite_t **bg);
 void clicked_home(sfEvent event, sprite_t **bg, sfRenderWindow *window);
 void start_disp(sfRenderWindow *window, sfSprite *sprite_start, sprite_t **bg);
 void help_disp(sfRenderWindow *window, sprite_t **bg);
-void display_home(sfRenderWindow *window, sprite_t **bg);
+void display_home(sfRenderWindow *window, sprite_t **bg, game_t *game);
 void display_help(sfRenderWindow *window, sprite_t **bg);
-void display_end(sfRenderWindow *window, sprite_t **bg, int time);
+void display_end(sfRenderWindow *window, sprite_t **bg, game_t *game);
 void helper_text(sfText *start_h, sfFont *font, sfRenderWindow *window);
 void pause_setsprite(sprite_t **brk);
 void touch_pause(sfRenderWindow *window, sprite_t **bg);
@@ -97,7 +99,7 @@ void game_event(sfRenderWindow *window, sprite_t **bg, sprite_t **ing);
 void display_game(sfRenderWindow *window, sprite_t **bg,
 		sprite_t **ing, game_t *game);
 void launch_pause_help_end(sfRenderWindow *window, sprite_t **bg,
-			sprite_t **brk, int i);
+			sprite_t **brk, game_t *game);
 void fill_game(game_t *game);
 char *remove_str_elem(char *str, int i);
 int *remove_intab_elem(int *str, int i);

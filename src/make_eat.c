@@ -7,6 +7,16 @@
 
 #include "cook.h"
 
+void make_burger_2(sprite_t **ing)
+{
+	if (ing[12]->o_sprt == 1 && ing[25]->o_sprt == 6)
+		ing[25]->o_sprt = 7;
+	if (ing[10]->o_sprt == 1 && ing[25]->o_sprt == 7)
+		ing[25]->o_sprt = 8;
+	if (ing[26]->o_sprt == 1 && ing[25]->o_sprt == 8)
+		ing[25]->o_sprt = 9;
+}
+
 void make_burger(sprite_t **ing)
 {
 	if (ing[10]->o_sprt == 1 && ing[25]->o_sprt == 0 &&
@@ -24,12 +34,7 @@ void make_burger(sprite_t **ing)
 		ing[25]->o_sprt = 5;
 	if (ing[20]->o_sprt == 1 && ing[25]->o_sprt == 5)
 		ing[25]->o_sprt = 6;
-	if (ing[12]->o_sprt == 1 && ing[25]->o_sprt == 6)
-		ing[25]->o_sprt = 7;
-	if (ing[10]->o_sprt == 1 && ing[25]->o_sprt == 7)
-		ing[25]->o_sprt = 8;
-	if (ing[26]->o_sprt == 1 && ing[25]->o_sprt == 8)
-		ing[25]->o_sprt = 9;
+	make_burger_2(ing);
 }
 
 void make_donut(sprite_t **ing)

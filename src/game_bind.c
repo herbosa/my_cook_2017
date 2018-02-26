@@ -38,9 +38,9 @@ void button_game(sprite_t **ing, sfEvent event)
 
 	for (i = 0; i < 25; i = i + 1)
 		if (event.mouseMove.x  > ing[i]->v_sprt.x &&
-		    event.mouseMove.x < ing[i]->v_sprt.x + 100 &&
-		    event.mouseMove.y > ing[i]->v_sprt.y &&
-		    event.mouseMove.y < ing[i]->v_sprt.y + 100)
+			event.mouseMove.x < ing[i]->v_sprt.x + 100 &&
+			event.mouseMove.y > ing[i]->v_sprt.y &&
+			event.mouseMove.y < ing[i]->v_sprt.y + 100)
 			ing[i]->r_sprt.top = 100;
 		else
 			ing[i]->r_sprt.top = 0;

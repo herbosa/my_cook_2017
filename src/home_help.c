@@ -49,7 +49,7 @@ void helper_text(sfText *start_h, sfFont *font, sfRenderWindow *window)
 	sfText_setString(start_h, "Press 'H' or\nClick Beer\nfor Help");
 	sfText_setFont(start_h, font);
 	sfText_setCharacterSize(start_h, 40);
-	sfText_setColor(start_h, sfColor_fromRGB(0 , 0, 0));
+	sfText_setColor(start_h, sfColor_fromRGB(0, 0, 0));
 	sfText_move(start_h, h_origin);
 	sfRenderWindow_drawText(window, start_h, NULL);
 	sfText_destroy(start_h);

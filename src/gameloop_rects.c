@@ -35,7 +35,8 @@ void end_point_disp(sfRenderWindow *window, int pointnb)
 	sfFont *font = sfFont_createFromFile("./rsrc/font/font.ttf");
 	sfVector2f origin = {780, 180};
 
-	sfText_setString(score, my_strcat("score :\n\n", 2, get_score(pointnb)));
+	sfText_setString(score, my_strcat("score :\n\n", 2,
+					get_score(pointnb)));
 	sfText_setFont(score, font);
 	sfText_setCharacterSize(score, 50);
 	sfText_move(score, origin);
@@ -46,7 +47,7 @@ void end_point_disp(sfRenderWindow *window, int pointnb)
 
 
 void game_loop(sfRenderWindow *window, sprite_t **bg,
-	       sprite_t **brk, sprite_t **ing)
+		sprite_t **brk, sprite_t **ing)
 {
 	sfClock *clock = sfClock_create();
 	game_t *game = malloc(sizeof(game_t *) * 10);
@@ -57,7 +58,7 @@ void game_loop(sfRenderWindow *window, sprite_t **bg,
 	srand((long long)&game);
 	while (sfRenderWindow_isOpen(window)) {
 		if (sfTime_asMicroseconds
-		    (sfClock_getElapsedTime(clock)) > time_i) {
+			(sfClock_getElapsedTime(clock)) > time_i) {
 			game->sec = 1;
 			sfClock_restart(clock);
 		} else
@@ -65,11 +66,11 @@ void game_loop(sfRenderWindow *window, sprite_t **bg,
 		if (bg[0]->o_sprt == 0) {
 			for (j = 0; j < 37; j = j + 1)
 				ing[j]->o_sprt = 0;
-			display_home(window, bg);
+			display_home(window, bg, game);
 		}
 		if (bg[0]->o_sprt == 1)
 			display_game(window, bg, ing, game);
-		launch_pause_help_end(window, bg, brk, game->sec);
+		launch_pause_help_end(window, bg, brk, game);
 	}
 }
 

@@ -23,7 +23,8 @@ SRC	=	src/main.c			\
 		src/menu.c			\
 		src/cmd.c			\
 		src/game.c			\
-		src/sprt_str.c
+		src/sprt_str.c			\
+		src/reinit_val.c
 
 OBJ	=	$(SRC:.c=.o)
 
