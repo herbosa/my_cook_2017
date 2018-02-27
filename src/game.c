@@ -78,6 +78,9 @@ void fill_game(game_t *game)
 	game->elapsed_time = 0;
 	(game->command)->cmd = malloc(sizeof(char) * 152);
 	(game->command)->time = malloc(sizeof(int) * 152);
+	game->win = sfMusic_createFromFile("./rsrc/sounds/win.wav");
+	game->lose = sfMusic_createFromFile("./rsrc/sounds/angry.wav");
+	game->punch = sfMusic_createFromFile("./rsrc/sounds/punch.wav");
 	for (j = 0; j < 150; j = j + 1) {
 		(game->command)->cmd[j] = '\0';
 		(game->command)->time[j] = 13;

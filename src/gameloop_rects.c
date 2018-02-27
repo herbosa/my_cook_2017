@@ -57,6 +57,8 @@ void game_loop(sfRenderWindow *window, sprite_t **bg,
 
 	fill_game(game);
 	srand((long long)&game);
+	sfMusic_play(cook);
+	sfMusic_setLoop(cook, 1);
 	while (sfRenderWindow_isOpen(window)) {
 		if (sfTime_asMicroseconds
 			(sfClock_getElapsedTime(clock)) > time_i) {
@@ -68,14 +70,15 @@ void game_loop(sfRenderWindow *window, sprite_t **bg,
 			for (j = 0; j < 37; j = j + 1)
 				ing[j]->o_sprt = 0;
 			display_home(window, bg, game);
-			sfMusic_play(cook);
-			sfMusic_setLoop(cook, 1);
 		}
 		if (bg[0]->o_sprt == 1)
 			display_game(window, bg, ing, game);
 		launch_pause_help_end(window, bg, brk, game);
 	}
 	sfMusic_destroy(cook);
+	sfMusic_destroy(game->win);
+	sfMusic_destroy(game->lose);
+	sfMusic_destroy(game->punch);
 }
 
 sfIntRect create_rect(sfIntRect rect)
