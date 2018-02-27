@@ -41,6 +41,8 @@ void rm_from_cmd(game_t *game, int nb_cmd)
 		}
 		i = i + 1;
 	}
+	sfMusic_destroy(win);
+	sfMusic_destroy(lose);
 }
 
 void make_burgers_drink(sprite_t **ing)

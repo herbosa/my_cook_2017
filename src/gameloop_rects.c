@@ -53,6 +53,7 @@ void game_loop(sfRenderWindow *window, sprite_t **bg,
 	game_t *game = malloc(sizeof(game_t *) * 10);
 	int j = 0;
 	int time_i = 1000000;
+	sfMusic *cook = sfMusic_createFromFile("./rsrc/sounds/cook.ogg");
 
 	fill_game(game);
 	srand((long long)&game);
@@ -67,11 +68,14 @@ void game_loop(sfRenderWindow *window, sprite_t **bg,
 			for (j = 0; j < 37; j = j + 1)
 				ing[j]->o_sprt = 0;
 			display_home(window, bg, game);
+			sfMusic_play(cook);
+			sfMusic_setLoop(cook, 1);
 		}
 		if (bg[0]->o_sprt == 1)
 			display_game(window, bg, ing, game);
 		launch_pause_help_end(window, bg, brk, game);
 	}
+	sfMusic_destroy(cook);
 }
 
 sfIntRect create_rect(sfIntRect rect)
