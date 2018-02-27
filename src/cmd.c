@@ -18,6 +18,8 @@ void rm_point(game_t *game)
 void rm_from_cmd(game_t *game, int nb_cmd)
 {
 	int  i = 0;
+	sfMusic *win = sfMusic_createFromFile("./rsrc/sounds/win.wav");
+	sfMusic *lose = sfMusic_createFromFile("./rsrc/sounds/angry.wav");
 
 	while ((game->command)->cmd[i]) {
 		if ((game->command)->time[i] < 0) {
@@ -26,6 +28,7 @@ void rm_from_cmd(game_t *game, int nb_cmd)
 			(game->command)->time =
 				remove_intab_elem((game->command)->time, i);
 			rm_point(game);
+			sfMusic_play(lose);
 			return;
 		} else if ((game->command)->cmd[i] == nb_cmd) {
 			(game->command)->cmd =
@@ -33,6 +36,7 @@ void rm_from_cmd(game_t *game, int nb_cmd)
 			game->point = game->point + ((game->command)->time[i]);
 			(game->command)->time =
 				remove_intab_elem((game->command)->time, i);
+			sfMusic_play(win);
 			return;
 		}
 		i = i + 1;
