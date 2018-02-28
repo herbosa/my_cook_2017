@@ -23,17 +23,21 @@ void clean_game_bool(sprite_t **ing, sprite_t **bg)
 	}
 }
 
-void game_event(sfRenderWindow *window, sprite_t **bg, sprite_t **ing)
+void game_event(sfRenderWindow *window, sprite_t **bg, sprite_t **ing, game_t *game)
 {
 	sfEvent event;
 
 	while (sfRenderWindow_pollEvent(window, &event)) {
 		if (event.type == sfEvtClosed)
 			sfRenderWindow_close(window);
-		if (event.type == sfEvtKeyPressed)
+		if (event.type == sfEvtKeyPressed) {
 			touch_game(window, bg, ing);
-		if (event.type == sfEvtMouseButtonPressed)
+			sfMusic_play(game->punch);
+		}
+		if (event.type == sfEvtMouseButtonPressed) {
 			clicked_game(ing, event);
+			sfMusic_play(game->punch);
+		}
 		button_game(ing, event);
 	}
 }
@@ -45,7 +49,7 @@ void display_game(sfRenderWindow *window, sprite_t **bg,
 	clean_game_bool(ing, bg);
 	if (game->sec == 1)
 		ing[36]->o_sprt = ing[36]->o_sprt + 1;
-	game_event(window, bg, ing);
+	game_event(window, bg, ing, game);
 	if (ing[23]->o_sprt == 1)
 		bg[0]->o_sprt = 2;
 	game_setsprite(ing);
@@ -78,9 +82,9 @@ void fill_game(game_t *game)
 	game->elapsed_time = 0;
 	(game->command)->cmd = malloc(sizeof(char) * 152);
 	(game->command)->time = malloc(sizeof(int) * 152);
-	game->win = sfMusic_createFromFile("./rsrc/sounds/win.wav");
-	game->lose = sfMusic_createFromFile("./rsrc/sounds/angry.wav");
-	game->punch = sfMusic_createFromFile("./rsrc/sounds/punch.wav");
+	game->win = sfMusic_createFromFile("rsrc/sounds/win.ogg");
+	game->lose = sfMusic_createFromFile("rsrc/sounds/angry.wav");
+	game->punch = sfMusic_createFromFile("rsrc/sounds/punch.ogg");
 	for (j = 0; j < 150; j = j + 1) {
 		(game->command)->cmd[j] = '\0';
 		(game->command)->time[j] = 13;

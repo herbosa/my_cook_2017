@@ -45,7 +45,6 @@ void end_point_disp(sfRenderWindow *window, int pointnb)
 	sfFont_destroy(font);
 }
 
-
 void game_loop(sfRenderWindow *window, sprite_t **bg,
 		sprite_t **brk, sprite_t **ing)
 {
@@ -53,7 +52,7 @@ void game_loop(sfRenderWindow *window, sprite_t **bg,
 	game_t *game = malloc(sizeof(game_t *) * 10);
 	int j = 0;
 	int time_i = 1000000;
-	sfMusic *cook = sfMusic_createFromFile("./rsrc/sounds/cook.ogg");
+	sfMusic *cook = sfMusic_createFromFile("rsrc/sounds/cook.ogg");
 
 	fill_game(game);
 	srand((long long)&game);

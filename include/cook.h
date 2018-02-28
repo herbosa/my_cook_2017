@@ -95,7 +95,7 @@ void make_comandes(sprite_t **ing);
 void add_cmd(game_t *game);
 void disp_cmd(sfRenderWindow *window, game_t *game, int i);
 void clean_game_bool(sprite_t **ing, sprite_t **bg);
-void game_event(sfRenderWindow *window, sprite_t **bg, sprite_t **ing);
+void game_event(sfRenderWindow *window, sprite_t **bg, sprite_t **ing, game_t *game);
 void display_game(sfRenderWindow *window, sprite_t **bg,
 		sprite_t **ing, game_t *game);
 void launch_pause_help_end(sfRenderWindow *window, sprite_t **bg,
