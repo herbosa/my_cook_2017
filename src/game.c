@@ -30,9 +30,8 @@ void game_event(sfRenderWindow *window, sprite_t **bg, sprite_t **ing, game_t *g
 	while (sfRenderWindow_pollEvent(window, &event)) {
 		if (event.type == sfEvtClosed)
 			sfRenderWindow_close(window);
-		if (event.type == sfEvtKeyPressed) {
+		if (event.type == sfEvtKeyPressed)
 			touch_game(window, bg, ing);
-		}
 		if (event.type == sfEvtMouseButtonPressed) {
 			clicked_game(ing, event);
 			sfMusic_play(game->punch);
