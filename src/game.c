@@ -32,7 +32,6 @@ void game_event(sfRenderWindow *window, sprite_t **bg, sprite_t **ing, game_t *g
 			sfRenderWindow_close(window);
 		if (event.type == sfEvtKeyPressed) {
 			touch_game(window, bg, ing);
-			sfMusic_play(game->punch);
 		}
 		if (event.type == sfEvtMouseButtonPressed) {
 			clicked_game(ing, event);
@@ -85,6 +84,7 @@ void fill_game(game_t *game)
 	game->win = sfMusic_createFromFile("rsrc/sounds/win.ogg");
 	game->lose = sfMusic_createFromFile("rsrc/sounds/angry.wav");
 	game->punch = sfMusic_createFromFile("rsrc/sounds/punch.ogg");
+	game->bell = sfMusic_createFromFile("rsrc/sounds/bell.ogg");
 	for (j = 0; j < 150; j = j + 1) {
 		(game->command)->cmd[j] = '\0';
 		(game->command)->time[j] = 13;

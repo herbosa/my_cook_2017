@@ -37,6 +37,7 @@ typedef struct game {
 	sfMusic *win;
 	sfMusic *lose;
 	sfMusic *punch;
+	sfMusic *bell;
 } game_t;
 
 #endif

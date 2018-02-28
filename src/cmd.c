@@ -88,6 +88,7 @@ void add_cmd(game_t *game)
 		(game->command)->cmd[i + 1] = '\0';
 		game->lastcmd = 1;
 		game->elapsed_time = 0;
+		sfMusic_play(game->bell);
 	}
 	if (game->sec == 1)
 		game->elapsed_time = game->elapsed_time + 1;

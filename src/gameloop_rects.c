@@ -78,6 +78,7 @@ void game_loop(sfRenderWindow *window, sprite_t **bg,
 	sfMusic_destroy(game->win);
 	sfMusic_destroy(game->lose);
 	sfMusic_destroy(game->punch);
+	sfMusic_destroy(game->bell);
 }
 
 sfIntRect create_rect(sfIntRect rect)
