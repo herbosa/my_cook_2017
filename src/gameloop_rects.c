@@ -45,6 +45,19 @@ void end_point_disp(sfRenderWindow *window, int pointnb)
 	sfFont_destroy(font);
 }
 
+void destroy(game_t *game, sfMusic *cook)
+{
+	sfMusic_destroy(cook);
+	sfMusic_destroy(game->win);
+	sfMusic_destroy(game->lose);
+	sfMusic_destroy(game->punch);
+	sfMusic_destroy(game->bell);
+	free((game->command)->cmd);
+	free((game->command)->time);
+	free(game->command);
+	free(game);
+}
+
 void game_loop(sfRenderWindow *window, sprite_t **bg,
 		sprite_t **brk, sprite_t **ing)
 {
@@ -74,11 +87,7 @@ void game_loop(sfRenderWindow *window, sprite_t **bg,
 			display_game(window, bg, ing, game);
 		launch_pause_help_end(window, bg, brk, game);
 	}
-	sfMusic_destroy(cook);
-	sfMusic_destroy(game->win);
-	sfMusic_destroy(game->lose);
-	sfMusic_destroy(game->punch);
-	sfMusic_destroy(game->bell);
+	destroy(game, cook);
 }
 
 sfIntRect create_rect(sfIntRect rect)
