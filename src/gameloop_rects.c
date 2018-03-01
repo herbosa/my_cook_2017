@@ -47,8 +47,9 @@ void end_point_disp(sfRenderWindow *window, int pointnb)
 	sfFont_destroy(font);
 }
 
-void destroy(game_t *game, sfMusic *cook)
+void destroy(game_t *game, sfMusic *cook, sfClock *clock)
 {
+	sfClock_destroy(clock);
 	sfMusic_destroy(cook);
 	sfMusic_destroy(game->win);
 	sfMusic_destroy(game->lose);
@@ -89,8 +90,7 @@ void game_loop(sfRenderWindow *window, sprite_t **bg,
 			display_game(window, bg, ing, game);
 		launch_pause_help_end(window, bg, brk, game);
 	}
-	destroy(game, cook);
-	sfClock_destroy(clock);
+	destroy(game, cook, clock);
 }
 
 sfIntRect create_rect(sfIntRect rect)
