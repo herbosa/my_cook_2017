@@ -47,52 +47,6 @@ void end_point_disp(sfRenderWindow *window, int pointnb)
 	sfFont_destroy(font);
 }
 
-void destroy(game_t *game, sfMusic *cook, sfClock *clock)
-{
-	sfClock_destroy(clock);
-	sfMusic_destroy(cook);
-	sfMusic_destroy(game->win);
-	sfMusic_destroy(game->lose);
-	sfMusic_destroy(game->punch);
-	sfMusic_destroy(game->bell);
-	free((game->command)->cmd);
-	free((game->command)->time);
-	free(game->command);
-	free(game);
-}
-
-void game_loop(sfRenderWindow *window, sprite_t **bg,
-		sprite_t **brk, sprite_t **ing)
-{
-	sfClock *clock = sfClock_create();
-	game_t *game = malloc(sizeof(game_t *) * 10);
-	int j = 0;
-	int time_i = 1000000;
-	sfMusic *cook = sfMusic_createFromFile("rsrc/sounds/cook.ogg");
-
-	fill_game(game);
-	srand((long long)&game);
-	sfMusic_play(cook);
-	sfMusic_setLoop(cook, 1);
-	while (sfRenderWindow_isOpen(window)) {
-		if (sfTime_asMicroseconds
-			(sfClock_getElapsedTime(clock)) > time_i) {
-			game->sec = 1;
-			sfClock_restart(clock);
-		} else
-			game->sec = 0;
-		if (bg[0]->o_sprt == 0) {
-			for (j = 0; j < 37; j = j + 1)
-				ing[j]->o_sprt = 0;
-			display_home(window, bg, game);
-		}
-		if (bg[0]->o_sprt == 1)
-			display_game(window, bg, ing, game);
-		launch_pause_help_end(window, bg, brk, game);
-	}
-	destroy(game, cook, clock);
-}
-
 sfIntRect create_rect(sfIntRect rect)
 {
 	rect.top = 0;

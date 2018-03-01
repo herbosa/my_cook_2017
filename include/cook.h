@@ -104,5 +104,9 @@ void fill_game(game_t *game);
 char *remove_str_elem(char *str, int i);
 int *remove_intab_elem(int *str, int i);
 void change_sprt(sfEvent event, sprite_t **bg, sfRenderWindow *window);
+void destroy(game_t *game, sfMusic *cook, sfClock *clock);
+void loop_time(sfClock *clock, game_t *game, int time_i);
+void loop_display(sfRenderWindow *window, game_t *game,
+	sprite_t **bg, sprite_t **ing);
 
 #endif

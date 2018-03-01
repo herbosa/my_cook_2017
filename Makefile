@@ -15,7 +15,7 @@ SRC	=	src/main.c			\
 		src/fill_ing_meats.c		\
 		src/fill_ing_salad.c		\
 		src/fill_tabs.c			\
-		src/gameloop_rects.c		\
+		src/score_rects.c		\
 		src/fill_ing_key.c		\
 		src/game_bind.c			\
 		src/disp_orders_drinks_salad.c	\
@@ -24,7 +24,8 @@ SRC	=	src/main.c			\
 		src/cmd.c			\
 		src/game.c			\
 		src/sprt_str.c			\
-		src/reinit_val.c
+		src/reinit_val.c		\
+		src/game_loop.c
 
 OBJ	=	$(SRC:.c=.o)
 
