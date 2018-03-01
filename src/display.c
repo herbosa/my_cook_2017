@@ -91,9 +91,11 @@ void end_point(sfRenderWindow *window, int pointnb)
 	sfText *score = sfText_create();
 	sfFont *font = sfFont_createFromFile("./rsrc/font/font.ttf");
 	sfVector2f origin = {1180, 480};
+	char *scorec = malloc(sizeof(char) * 3);
 
 	sfText_setString(score, my_strcat("score :\n\n", 2,
-					get_score(pointnb)));
+					get_score(pointnb, scorec)));
+	free(scorec);
 	sfText_setFont(score, font);
 	sfText_setCharacterSize(score, 50);
 	sfText_move(score, origin);

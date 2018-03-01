@@ -61,5 +61,7 @@ char *my_strcat(char *str, int nblist, ...)
 		str = my_strdup(dest);
 	}
 	va_end(listarg);
+	free(str);
+	free(src);
 	return (dest);
 }

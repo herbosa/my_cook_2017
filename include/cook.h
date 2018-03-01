@@ -17,7 +17,7 @@
 #include "my_printf.h"
 #include "graph.h"
 
-char *get_score(int nb);
+char *get_score(int nb, char *score);
 void reinit_val();
 void touch_home(sfRenderWindow *window, sprite_t **bg);
 void clicked_help(sfEvent event, sprite_t **bg);

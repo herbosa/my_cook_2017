@@ -8,9 +8,8 @@
 #include "cook.h"
 
 
-char *get_score(int nb)
+char *get_score(int nb, char *score)
 {
-	char *score = malloc(sizeof(char) * 3);
 	int i = 0;
 
 	if (nb >= 100) {
@@ -31,12 +30,15 @@ char *get_score(int nb)
 
 void end_point_disp(sfRenderWindow *window, int pointnb)
 {
+	char *scorec = malloc(sizeof(char) * 3);
+	char *concat = my_strcat("score :\n\n", 2, get_score(pointnb, scorec));
 	sfText *score = sfText_create();
 	sfFont *font = sfFont_createFromFile("./rsrc/font/font.ttf");
 	sfVector2f origin = {780, 180};
 
-	sfText_setString(score, my_strcat("score :\n\n", 2,
-					get_score(pointnb)));
+	sfText_setString(score, concat);
+	free(concat);
+	free(scorec);
 	sfText_setFont(score, font);
 	sfText_setCharacterSize(score, 50);
 	sfText_move(score, origin);
@@ -88,6 +90,7 @@ void game_loop(sfRenderWindow *window, sprite_t **bg,
 		launch_pause_help_end(window, bg, brk, game);
 	}
 	destroy(game, cook);
+	sfClock_destroy(clock);
 }
 
 sfIntRect create_rect(sfIntRect rect)
