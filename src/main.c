@@ -7,6 +7,32 @@
 
 #include "cook.h"
 
+void free_sprt(sprite_t **bg, sprite_t **brk, sprite_t **ing)
+{
+	int i = 0;
+
+	for (i = 0; bg[i]; i = i + 1) {
+		sfTexture_destroy(bg[i]->t_sprt);
+		sfSprite_destroy(bg[i]->s_sprt);
+		free(bg[i]);
+	}
+	free(bg);
+	for (i = 0; brk[i]; i = i + 1) {
+		sfTexture_destroy(brk[i]->t_sprt);
+		sfSprite_destroy(brk[i]->s_sprt);
+		free(brk[i]);
+	}
+	free(brk);
+	for (i = 0; ing[i]; i = i + 1) {
+		if (i == 26 || i == 29)
+			continue;
+		sfTexture_destroy(ing[i]->t_sprt);
+		sfSprite_destroy(ing[i]->s_sprt);
+		free(ing[i]);
+	}
+	free(ing);
+}
+
 int main(int ac, char **av, char **envp)
 {
 	sfRenderWindow *window = malloc(sizeof(sfRenderWindow *) * 1);
@@ -26,5 +52,8 @@ int main(int ac, char **av, char **envp)
 	sfRenderWindow_setIcon(window, 32, 32, icon);
 	sfRenderWindow_setFramerateLimit(window, 60);
 	game_loop(window, bg, brk, ing);
+	free_sprt(bg, brk, ing);
+	sfImage_destroy(icn);
+	sfRenderWindow_destroy(window);
 	return (0);
 }

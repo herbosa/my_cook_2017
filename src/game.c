@@ -88,4 +88,5 @@ void fill_game(game_t *game)
 		(game->command)->cmd[j] = '\0';
 		(game->command)->time[j] = 13;
 	}
+	(game->command)->time[j] = '\0';
 }
