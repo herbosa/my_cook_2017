@@ -76,7 +76,6 @@ sprite_t **fill_ing_21_23(sprite_t **ing)
 	return (ing);
 }
 
-
 sprite_t **fill_ing_24_26(sprite_t **ing)
 {
 	ing[24] = malloc(sizeof(sprite_t) * 1);

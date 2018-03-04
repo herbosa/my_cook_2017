@@ -46,7 +46,6 @@ void black_disp_cmd(sfRenderWindow *window, game_t *game, int i)
 		disp_str(window, "FRIES", 10, 50 * i + 120);
 }
 
-
 void red_disp_cmd(sfRenderWindow *window, game_t *game, int i)
 {
 	if ((game->command)->cmd[i] == 1)
@@ -100,4 +99,3 @@ void disp_cmd(sfRenderWindow *window, game_t *game, int i)
 			(game->command)->time[i] = (game->command)->time[i] - 1;
 	}
 }
-
