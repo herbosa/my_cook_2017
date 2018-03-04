@@ -33,21 +33,27 @@ char *set_string(void)
 	char *b = " NEW RESTAURANT, CONGRATULATIONS!\nYOU HAVE TO COMPLETE";
 	char *c = " THE MAXIMUM AMOUNT OF ORDERS\nUNTIL THE END OF THE DAY";
 	char *d = ".\nBUT BEWARE: WRONG ORDERS WILL MAKE YOU LOSE MONEY";
-	char *e = "!\nGOOD LUCK, YOUNG COOKER!";
+	char *e = "!\nGOOD LUCK, YOUNG COOKER!\n\nRECIPES:\n-BURGER : . . . ";
+	char *eb = ". . P, S, K, M";
+	char *f = ", T, Y, N, P\n-VEGAN BURGER : . . P, H, T, Y, N, P\n-DONUT:";
+	char *fb = " . . . . . . D,";
+	char *g = " ENTER, ENTER, G, I\n-SALAD: . . . . . . Y, T, R, V";
+	char *gb = "\n\nPRESS SPACE TO";
+	char *h = " SEND COMMAND!";
 
-	return (my_strcat(a, 5, b, c, d, e));
+	return (my_strcat(a, 11, b, c, d, e, eb, f, fb, g, gb, h));
 }
 
 void help_disp(sfRenderWindow *window, sprite_t **bg)
 {
 	sfText *start = sfText_create();
 	sfFont *font = sfFont_createFromFile("./rsrc/font/font.ttf");
-	sfVector2f origin = {120, 290};
+	sfVector2f origin = {400, 230};
 
 	sfRenderWindow_drawSprite(window, bg[5]->s_sprt, NULL);
 	sfText_setString(start, set_string());
 	sfText_setFont(start, font);
-	sfText_setCharacterSize(start, 50);
+	sfText_setCharacterSize(start, 30);
 	sfText_setColor(start, sfColor_fromRGB(0, 0, 0));
 	sfText_move(start, origin);
 	sfRenderWindow_drawText(window, start, NULL);
