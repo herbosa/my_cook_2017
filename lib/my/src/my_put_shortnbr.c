@@ -22,8 +22,7 @@ int my_put_hnbr(short int nb)
 			nb = nb / 10;
 			my_put_hnbr(nb);
 			my_putchar(48 + nbr);
-		}
-		else
+		} else
 			my_putchar(48 + nb % 10);
 	}
 	return (0);
@@ -44,8 +43,7 @@ int my_put_hhnbr(char nb)
 			nb = nb / 10;
 			my_put_hnbr(nb);
 			my_putchar(48 + nbr);
-		}
-		else
+		} else
 			my_putchar(48 + nb % 10);
 	}
 	return (0);

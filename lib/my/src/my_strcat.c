@@ -52,7 +52,7 @@ char *my_strcat(char *str, int nblist, ...)
 
 	va_start(listarg, nblist);
 	while (nblist != 1) {
-		src = my_strdup(va_arg(listarg, char*));
+		src = my_strdup(va_arg(listarg, char *));
 		j = my_strlen(str);
 		dest = malloc(sizeof(char) * (j + 2) + my_strlen(src));
 		dest = my_strcpy(dest, str);

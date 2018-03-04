@@ -21,7 +21,7 @@ void touch_pause(sfRenderWindow *window, sprite_t **bg)
 	if (sfKeyboard_isKeyPressed(sfKeyQ))
 		sfRenderWindow_close(window);
 	if (sfKeyboard_isKeyPressed(sfKeyM))
-		bg[0]->o_sprt = 0;;
+		bg[0]->o_sprt = 0;
 }
 
 void button_pause(sprite_t **brk, sfEvent event)

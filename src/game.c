@@ -23,7 +23,8 @@ void clean_game_bool(sprite_t **ing, sprite_t **bg)
 	}
 }
 
-void game_event(sfRenderWindow *window, sprite_t **bg, sprite_t **ing, game_t *game)
+void game_event(sfRenderWindow *window, sprite_t **bg, sprite_t **ing,
+		game_t *game)
 {
 	sfEvent event;
 

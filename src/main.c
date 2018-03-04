@@ -7,7 +7,23 @@
 
 #include "cook.h"
 
-void free_sprt(sprite_t **bg, sprite_t **brk, sprite_t **ing)
+void free_ing(sprite_t **ing)
+{
+	int i = 0;
+
+	for (i = 0; ing[i]; i = i + 1) {
+		if (i == 26 || i == 29) {
+			free(ing[i]);
+			continue;
+		}
+		sfTexture_destroy(ing[i]->t_sprt);
+		sfSprite_destroy(ing[i]->s_sprt);
+		free(ing[i]);
+	}
+	free(ing);
+}
+
+void free_sprt(sprite_t **bg, sprite_t **brk, sprite_t **ing, sfImage *icn)
 {
 	int i = 0;
 
@@ -23,16 +39,8 @@ void free_sprt(sprite_t **bg, sprite_t **brk, sprite_t **ing)
 		free(brk[i]);
 	}
 	free(brk);
-	for (i = 0; ing[i]; i = i + 1) {
-		if (i == 26 || i == 29) {
-			free(ing[i]);
-			continue;
-		}
-		sfTexture_destroy(ing[i]->t_sprt);
-		sfSprite_destroy(ing[i]->s_sprt);
-		free(ing[i]);
-	}
-	free(ing);
+	free_ing(ing);
+	sfImage_destroy(icn);
 }
 
 int main(int ac, char **av, char **envp)
@@ -54,8 +62,7 @@ int main(int ac, char **av, char **envp)
 	sfRenderWindow_setIcon(window, 32, 32, icon);
 	sfRenderWindow_setFramerateLimit(window, 60);
 	game_loop(window, bg, brk, ing);
-	free_sprt(bg, brk, ing);
-	sfImage_destroy(icn);
+	free_sprt(bg, brk, ing, icn);
 	sfRenderWindow_destroy(window);
 	return (0);
 }

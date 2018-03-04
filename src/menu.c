@@ -65,21 +65,3 @@ void disp_str(sfRenderWindow *window, char *str, int x, int y)
 	sfText_destroy(start);
 	sfFont_destroy(font);
 }
-
-void disp_str_red(sfRenderWindow *window, char *str, int x, int y)
-{
-	sfText *start = sfText_create();
-	sfFont *font = sfFont_createFromFile("./rsrc/font/font.ttf");
-	sfVector2f origin;
-
-	origin.x = x;
-	origin.y = y;
-	sfText_setString(start, str);
-	sfText_setFont(start, font);
-	sfText_setCharacterSize(start, 30);
-	sfText_setColor(start, sfColor_fromRGB(200, 14, 14));
-	sfText_move(start, origin);
-	sfRenderWindow_drawText(window, start, NULL);
-	sfText_destroy(start);
-	sfFont_destroy(font);
-}

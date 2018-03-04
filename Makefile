@@ -25,7 +25,9 @@ SRC	=	src/main.c			\
 		src/game.c			\
 		src/sprt_str.c			\
 		src/reinit_val.c		\
-		src/game_loop.c
+		src/game_loop.c			\
+		src/disp_cmd.c			\
+		src/disp_str.c
 
 OBJ	=	$(SRC:.c=.o)
 

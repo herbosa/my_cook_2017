@@ -91,3 +91,24 @@ void make_salad(sprite_t **ing)
 	if (ing[26]->o_sprt == 1 && ing[30]->o_sprt == 4)
 		ing[30]->o_sprt = 5;
 }
+
+void make_vege_burger(sprite_t **ing)
+{
+	if (ing[10]->o_sprt == 1 && ing[27]->o_sprt == 0 &&
+		ing[25]->o_sprt <= 1)
+		ing[27]->o_sprt = 1;
+	if (ing[19]->o_sprt == 1 && ing[27]->o_sprt == 1) {
+		ing[27]->o_sprt = 2;
+		ing[25]->o_sprt = 0;
+	}
+	if (ing[17]->o_sprt == 1 && ing[27]->o_sprt == 2)
+		ing[27]->o_sprt = 3;
+	if (ing[20]->o_sprt == 1 && ing[27]->o_sprt == 3)
+		ing[27]->o_sprt = 4;
+	if (ing[12]->o_sprt == 1 && ing[27]->o_sprt == 4)
+		ing[27]->o_sprt = 5;
+	if (ing[10]->o_sprt == 1 && ing[27]->o_sprt == 5)
+		ing[27]->o_sprt = 6;
+	if (ing[26]->o_sprt == 1 && ing[27]->o_sprt == 6)
+		ing[27]->o_sprt = 7;
+}
